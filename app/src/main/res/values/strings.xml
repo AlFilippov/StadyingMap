@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Stadying</string>
+    <string name="button">Button</string>
+    <string name="nameRegistr">Регистрация</string>
+    <string name="nameBox">Введите имя</string>
+    <string name="namePass">Введите пароль</string>
+    <string name="getReg">Зарегистрироваться</string>
+    <string name="showData">Показать данные регистрации</string>
+</resources>
