@@ -1,0 +1,45 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/fragment1_interes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/fragment1_interes"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/humanitiesandart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/humanitiesandart" />
+
+        <SeekBar
+            android:id="@+id/seekbar_ha"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:max="10"
+            android:progress="5" />
+
+        <TextView
+            android:id="@+id/computer_science"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/computer_science" />
+
+        <SeekBar
+            android:id="@+id/seekbar_cs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:max="10"
+            android:progress="5" />
+
+    </LinearLayout>
+</ScrollView>
+
