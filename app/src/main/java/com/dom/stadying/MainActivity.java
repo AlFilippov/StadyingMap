@@ -1,6 +1,7 @@
 package com.dom.stadying;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         EditText passBox = findViewById(R.id.passBox);
         name = nameBox.getText().toString();
         password = passBox.getText().toString();
+        Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
+        startActivity(intent);
 
     }
 

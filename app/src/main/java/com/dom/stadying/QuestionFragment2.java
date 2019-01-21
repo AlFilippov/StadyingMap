@@ -1,4 +1,6 @@
 package com.dom.stadying;
 
-public class QuestionFragment2 {
+import android.support.v4.app.Fragment;
+
+public class QuestionFragment2 extends Fragment {
 }
