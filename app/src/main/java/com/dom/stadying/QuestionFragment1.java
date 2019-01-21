@@ -1,9 +1,9 @@
 package com.dom.stadying;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,32 +17,37 @@ public class QuestionFragment1 extends Fragment implements SeekBar.OnSeekBarChan
     protected int seekbar_changed1;
     protected int seekbar_changed2;
     private int seekbar_changed3;
-
+    private TextView seekbarview;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View qView = inflater.inflate(R.layout.question_fragment1, container, false);
-         SeekBar seekBar_HA = qView.findViewById(R.id.seekbar_ha);
-         SeekBar seekBar_CS = qView.findViewById(R.id.seekbar_cs);
+        SeekBar seekBar_HA = qView.findViewById(R.id.seekbar_ha);
+        SeekBar seekBar_CS = qView.findViewById(R.id.seekbar_cs);
         seekBar_HA.setOnSeekBarChangeListener(this);
         seekBar_CS.setOnSeekBarChangeListener(this);
+        TextView seekbarview = qView.findViewById(R.id.tt);
+
         return qView;
     }
-
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
+
     }
+
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
 
     }
 
-@Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
 
-        switch (seekBar.getId()){
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+//Вынести содержимое в метод
+        switch (seekBar.getId()) {
 
             case R.id.seekbar_ha:
 
@@ -54,10 +59,7 @@ public class QuestionFragment1 extends Fragment implements SeekBar.OnSeekBarChan
         }
 
     }
-
-
-
-
+    
 
 
 }

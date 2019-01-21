@@ -79,14 +79,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        EditText nameBox = findViewById(R.id.nameBox);
-        EditText passBox = findViewById(R.id.passBox);
+
         //Проверяем содержание данных , если true то выводим их в EditText
         if (mSettings.contains(APP_PREFERENCES_LOGIN) && mSettings.contains(APP_PREFERENCES_PASSWORD)) {
             name = mSettings.getString(APP_PREFERENCES_LOGIN,"");
             password=mSettings.getString(APP_PREFERENCES_PASSWORD," ");
-            nameBox.setText(name);
-            passBox.setText(password);
+
 
         }
     }

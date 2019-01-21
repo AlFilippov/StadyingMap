@@ -40,6 +40,11 @@
             android:layout_height="match_parent"
             android:max="10"
             android:progress="5" />
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/tt"
+    android:text="Номер"/>
 
     </LinearLayout>
 </ScrollView>

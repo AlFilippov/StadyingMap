@@ -1,20 +1,22 @@
 package com.dom.stadying;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 public class QuestionActivity extends MainActivity {
-
+private int seekbar1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       FragmentManager fragmentManager = getFragmentManager();
-       Fragment questionFragment1 = fragmentManager.findFragmentById(R.id.question_fragment1);
-       FragmentTransaction ft = fragmentManager.beginTransaction();
-       ft.add(R.id.container,questionFragment1,"questionFragment");
-       ft.commit();
+        setContentView(R.layout.activity_question);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        QuestionFragment1 questionFragment1 = new QuestionFragment1();
+        ft.add(R.id.container,questionFragment1);
+        ft.commit();
+        //Обратиться к переменной фрагмента , чтобы получить даннные по нажатию кнопок
     }
+
 }
 
