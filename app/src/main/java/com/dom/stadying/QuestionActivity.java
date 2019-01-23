@@ -15,6 +15,7 @@ private int seekbar1;
         QuestionFragment1 questionFragment1 = new QuestionFragment1();
         ft.add(R.id.container,questionFragment1);
         ft.commit();
+
         //Обратиться к переменной фрагмента , чтобы получить даннные по нажатию кнопок
     }
 

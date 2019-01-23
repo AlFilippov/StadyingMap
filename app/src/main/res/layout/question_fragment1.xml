@@ -25,7 +25,7 @@
             android:id="@+id/seekbar_ha"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:max="10"
+            android:max="5"
             android:progress="5" />
 
         <TextView
@@ -38,13 +38,15 @@
             android:id="@+id/seekbar_cs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:max="10"
+            android:max="5"
             android:progress="5" />
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/tt"
-    android:text="Номер"/>
+
+        <Button
+            android:id="@+id/fragment1_finish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment1_finish"
+            />
 
     </LinearLayout>
 </ScrollView>

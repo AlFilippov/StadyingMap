@@ -8,13 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class QuestionFragment2 extends Fragment {
+public class LanguageFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       View q2View = inflater.inflate(R.layout.question_fragment2,container,false);
-       //Создать более точную информацию
-
-       return q2View;
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 }

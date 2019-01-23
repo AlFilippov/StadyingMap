@@ -10,9 +10,10 @@
     <string name="yes">Да</string>
     <string name="No">Нет</string>
     <string name="humanitiesandart">Гуманитарные науки и исскуство</string>
-    <string name="fragment1_interes">Что вам интересно ?</string>
+    <string name="fragment1_interes">Что нам нравится?</string>
     <string name="business">Бизнес</string>
     <string name="cooking">Кулинария</string>
     <string name="computer_science">Компьютерные науки</string>
     <string name="data_science">Наука о данных</string>
+    <string name="fragment1_finish">Готово</string>
 </resources>
