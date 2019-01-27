@@ -1,7 +1,6 @@
 package com.dom.stadying;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,37 +13,61 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class QuestionFragment1 extends Fragment implements SeekBar.OnSeekBarChangeListener {
-    private int seekbar_changed1;
-    private int seekbar_changed2;
-private Button fq1Button;
+private static final String  HUMANITIES_AND_ART = "human_art";
+private static final String  COMPUTER_SCIENCE = "computer_science";
+    private Button mFragmentButton;
+    private OnFragmentInteractionListener mListener;
+    private int mTextView;
+    private String mKey;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View qView = inflater.inflate(R.layout.question_fragment1, container, false);
-        SeekBar seekBar_HA = qView.findViewById(R.id.seekbar_ha);
-        SeekBar seekBar_CS = qView.findViewById(R.id.seekbar_cs);
-        seekBar_HA.setOnSeekBarChangeListener(this);
-        seekBar_CS.setOnSeekBarChangeListener(this);
-        Button fq1Button = qView.findViewById(R.id.fragment1_finish);
-        fq1Button.setOnClickListener(new View.OnClickListener() {
+        SeekBar seekBarHumanandArt = qView.findViewById(R.id.seekbar_ha);
+        SeekBar seekBarComputerScience = qView.findViewById(R.id.seekbar_cs);
+        TextView ExampleTextView = qView.findViewById(R.id.textview);
+        seekBarComputerScience.setOnSeekBarChangeListener(this);
+        seekBarHumanandArt.setOnSeekBarChangeListener(this);
+        ExampleTextView.setText(String.valueOf(getTextView()));
+
+        Button mFragmentButton = qView.findViewById(R.id.fragment1_finish);
+        mFragmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Переход на 2 фрагмент с данными
+                //Задача метода передать данные в активити
+                replacefragment();
             }
         });
-        //Вопрос по реализации все кнопок в одном onCreateView
         return qView;
+    }
+
+    public String getKey() {
+        return mKey;
+    }
+
+    public void setKey(String key) {
+        mKey = key;
+    }
+
+    public void setTextView(int textView) {
+        this.mTextView = textView;
+    }
+
+    public int getTextView() {
+        return mTextView;
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
         switch (seekBar.getId()) {
             case R.id.seekbar_ha:
-                seekbar_changed1 = seekBar.getProgress();
+                setTextView(progress);
+               setKey(HUMANITIES_AND_ART);
                 break;
             case R.id.seekbar_cs:
-                seekbar_changed2 = seekBar.getProgress();
+                setKey(COMPUTER_SCIENCE);
+                setTextView(progress);
                 break;
+
         }
     }
 
@@ -53,15 +76,35 @@ private Button fq1Button;
 
     }
 
-
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
     }
 
+    //Вложенный интерфейс для взаимодействия с активити
+    interface OnFragmentInteractionListener {
+        void OnFragmentInteraction(int value_seekbar,String key);
+
+    }
+
     @Override
     public void onAttach(Context context) {
-
         super.onAttach(context);
+//Обращаемся к активити
+        mListener = (OnFragmentInteractionListener) context;
+
+
+    }
+
+    public void replacefragment() {
+        int b = getTextView();
+        String c = getKey();
+        //Передаем некоторое значение , по которому будем судить
+        mListener.OnFragmentInteraction(b,c);
+    }
+
+    public void saveBar(int b) {
+
     }
 }
+

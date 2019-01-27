@@ -47,6 +47,11 @@
             android:layout_height="wrap_content"
             android:text="@string/fragment1_finish"
             />
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Значение "/>
 
     </LinearLayout>
 </ScrollView>

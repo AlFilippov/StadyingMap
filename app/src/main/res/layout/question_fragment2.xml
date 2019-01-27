@@ -4,5 +4,9 @@
     android:layout_height="match_parent"
     android:id="@+id/question_fragment2">
 
-
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:text="Ура ты решил эту проблему "
+    android:id="@+id/decided"/>
 </android.support.constraint.ConstraintLayout>

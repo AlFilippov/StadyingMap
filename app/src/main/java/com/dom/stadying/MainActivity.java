@@ -52,7 +52,12 @@ public class MainActivity extends AppCompatActivity {
         passBox.setText(password);
         super.onRestoreInstanceState(savedInstanceState);
     }
-
+public void saveData(){
+    EditText nameBox = findViewById(R.id.nameBox);
+    EditText passBox = findViewById(R.id.passBox);
+    nameBox.setText(name);
+    passBox.setText(password);
+}
     public void RegistrationButton(View view) {
        Toast toast = Toast.makeText(this,"Успешно",Toast.LENGTH_SHORT);
        toast.show();
@@ -84,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         if (mSettings.contains(APP_PREFERENCES_LOGIN) && mSettings.contains(APP_PREFERENCES_PASSWORD)) {
             name = mSettings.getString(APP_PREFERENCES_LOGIN,"");
             password=mSettings.getString(APP_PREFERENCES_PASSWORD," ");
-
+//saveData();
 
         }
     }
