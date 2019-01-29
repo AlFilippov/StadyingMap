@@ -16,4 +16,15 @@
     <string name="computer_science">Компьютерные науки</string>
     <string name="data_science">Наука о данных</string>
     <string name="fragment1_finish">Готово</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="nav_news">Новости</string>
+    <string name="nav_lessons">Уроки</string>
+    <string name="nav_tasks">Задачи</string>
+    <string name="nav_settings">Настройки</string>
 </resources>

@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class QuestionActivity extends MainActivity implements QuestionFragment1.OnFragmentInteractionListener {
 
@@ -23,19 +24,20 @@ public class QuestionActivity extends MainActivity implements QuestionFragment1.
     Map<Integer, String> dataquestions = new HashMap<Integer, String>();
 
     @Override
-    public void OnFragmentInteraction(int value_seekbar, String key) {
-        dataquestions.put(value_seekbar, key);
-        if (value_seekbar != 0 && key.equals("human_art")) {
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.addToBackStack(null);
-            QuestionFragment2 qf2 = new QuestionFragment2();
-            ft.replace(R.id.container, qf2);
-            fm.popBackStack();
-            ft.commit();
-        }
+    public void OnFragmentInteraction(int value_seekbar, String keys) {
+        dataquestions.put(value_seekbar, keys);
+        if(!dataquestions.containsKey("default")){
+//        if (value_seekbar != 0 && key.equals("human_art")) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.addToBackStack(null);
+        QuestionFragment2 qf2 = new QuestionFragment2();
+        ft.replace(R.id.container, qf2);
+        fm.popBackStack();
+        ft.commit();
 
 
     }
 }
 
+}

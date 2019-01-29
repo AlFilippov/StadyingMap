@@ -65,7 +65,7 @@ public void saveData(){
         EditText passBox = findViewById(R.id.passBox);
         name = nameBox.getText().toString();
         password = passBox.getText().toString();
-        Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
+        Intent intent = new Intent(MainActivity.this, NavigationDrawer.class);
         startActivity(intent);
 
     }

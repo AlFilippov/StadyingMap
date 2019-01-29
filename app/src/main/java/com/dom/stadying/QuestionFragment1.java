@@ -15,6 +15,8 @@ import android.widget.TextView;
 public class QuestionFragment1 extends Fragment implements SeekBar.OnSeekBarChangeListener {
 private static final String  HUMANITIES_AND_ART = "human_art";
 private static final String  COMPUTER_SCIENCE = "computer_science";
+private static final String  DEFAULT_KEY = "default";
+
     private Button mFragmentButton;
     private OnFragmentInteractionListener mListener;
     private int mTextView;
@@ -67,6 +69,10 @@ private static final String  COMPUTER_SCIENCE = "computer_science";
                 setKey(COMPUTER_SCIENCE);
                 setTextView(progress);
                 break;
+                default:
+                    setKey(DEFAULT_KEY);
+                    break;
+
 
         }
     }
