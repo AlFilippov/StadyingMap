@@ -12,18 +12,19 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class QuestionFragment1 extends Fragment implements SeekBar.OnSeekBarChangeListener {
-private static final String  HUMANITIES_AND_ART = "human_art";
-private static final String  COMPUTER_SCIENCE = "computer_science";
-private static final String  DEFAULT_KEY = "default";
+public class ChoiceOfProfession extends Fragment implements SeekBar.OnSeekBarChangeListener {
+    private static final String HUMANITIES_AND_ART = "human_art";
+    private static final String COMPUTER_SCIENCE = "computer_science";
+    private static final String DEFAULT_KEY = "default";
 
     private Button mFragmentButton;
     private OnFragmentInteractionListener mListener;
     private int mTextView;
     private String mKey;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View qView = inflater.inflate(R.layout.question_fragment1, container, false);
+        View qView = inflater.inflate(R.layout.choice_profession, container, false);
         SeekBar seekBarHumanandArt = qView.findViewById(R.id.seekbar_ha);
         SeekBar seekBarComputerScience = qView.findViewById(R.id.seekbar_cs);
         TextView ExampleTextView = qView.findViewById(R.id.textview);
@@ -63,15 +64,15 @@ private static final String  DEFAULT_KEY = "default";
         switch (seekBar.getId()) {
             case R.id.seekbar_ha:
                 setTextView(progress);
-               setKey(HUMANITIES_AND_ART);
+                setKey(HUMANITIES_AND_ART);
                 break;
             case R.id.seekbar_cs:
                 setKey(COMPUTER_SCIENCE);
                 setTextView(progress);
                 break;
-                default:
-                    setKey(DEFAULT_KEY);
-                    break;
+            default:
+                setKey(DEFAULT_KEY);
+                break;
 
 
         }
@@ -89,7 +90,7 @@ private static final String  DEFAULT_KEY = "default";
 
     //Вложенный интерфейс для взаимодействия с активити
     interface OnFragmentInteractionListener {
-        void OnFragmentInteraction(int value_seekbar,String key);
+        void OnFragmentInteraction(int value_seekbar, String key);
 
     }
 
@@ -106,7 +107,7 @@ private static final String  DEFAULT_KEY = "default";
         int b = getTextView();
         String c = getKey();
         //Передаем некоторое значение , по которому будем судить
-        mListener.OnFragmentInteraction(b,c);
+        mListener.OnFragmentInteraction(b, c);
     }
 
     public void saveBar(int b) {

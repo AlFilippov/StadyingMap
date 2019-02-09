@@ -52,12 +52,8 @@ public class MainActivity extends AppCompatActivity {
         passBox.setText(password);
         super.onRestoreInstanceState(savedInstanceState);
     }
-public void saveData(){
-    EditText nameBox = findViewById(R.id.nameBox);
-    EditText passBox = findViewById(R.id.passBox);
-    nameBox.setText(name);
-    passBox.setText(password);
-}
+
+
     public void RegistrationButton(View view) {
        Toast toast = Toast.makeText(this,"Успешно",Toast.LENGTH_SHORT);
        toast.show();

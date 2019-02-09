@@ -18,22 +18,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NavigationDrawer extends MainActivity
-        implements NavigationView.OnNavigationItemSelectedListener , QuestionFragment1.OnFragmentInteractionListener
-{
+        implements NavigationView.OnNavigationItemSelectedListener, ChoiceOfProfession.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        QuestionFragment1 questionFragment1 = new QuestionFragment1();
-        ft.add(R.id.container, questionFragment1);
-        ft.commit();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//TODO:Значок конверта - переделать в Задачи
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//TODO:Значок конверта - переделать в Избранное
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,16 +36,21 @@ public class NavigationDrawer extends MainActivity
             }
         });
 //TODO:Инициадизируется общий экран - подумать,что там может находится
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
-    Map<Integer, String> dataquestions = new HashMap<Integer, String>();
-//TODO:Проверяется были ли ответы на вопросы , если да то переходим на след.экран - доделать след.экран
+
+
+    //TODO:Проверяется были ли ответы на вопросы , если да то переходим на след.экран - доделать след.экран
+    Map<Integer, String> dataquestions = new HashMap<>();
+
     @Override
     public void OnFragmentInteraction(int value_seekbar, String keys) {
         dataquestions.put(value_seekbar, keys);
@@ -60,14 +59,18 @@ public class NavigationDrawer extends MainActivity
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
             ft.addToBackStack(null);
-            QuestionFragment2 qf2 = new QuestionFragment2();
+            ProfessionDefinition qf2 = new ProfessionDefinition();
             ft.replace(R.id.container, qf2);
             fm.popBackStack();
             ft.commit();
 
+        } else if (dataquestions.containsKey("computer_science")) {
+
+        } else if (dataquestions.containsKey("human_art")) {
 
         }
     }
+
     //Проверяется открыта ли шторка , при нажатии кнопки назад
     @Override
     public void onBackPressed() {
@@ -110,7 +113,11 @@ public class NavigationDrawer extends MainActivity
         if (id == R.id.nav_news) {
             // Handle the camera action
         } else if (id == R.id.nav_lessons) {
-
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ChoiceOfProfession choiceOfProfession = new ChoiceOfProfession();
+            ft.add(R.id.container, choiceOfProfession);
+            ft.commit();
         } else if (id == R.id.nav_tasks) {
 
         } else if (id == R.id.nav_settings) {
@@ -120,7 +127,8 @@ public class NavigationDrawer extends MainActivity
         } else if (id == R.id.nav_send) {
 
         }
-
+        item.setChecked(true);
+        setTitle(item.getTitle());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
