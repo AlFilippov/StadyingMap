@@ -12,12 +12,20 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProfessionDefinition extends Fragment {
     private TextView textview;
     private static List<ProfessionalDefinition> ProfessionOnePart = new ArrayList<>();
     private static List<ProfessionalDefinition> ProfessionTwoPart = new ArrayList<>();
     private static List<ProfessionalDefinition> ProfessionThreePart = new ArrayList<>();
+    public List<String> listRealist = new ArrayList<>();
+    public List<String> listIntellectual = new ArrayList<>();
+    public List<String> listSocial = new ArrayList<>();
+    public List<String> listOffice = new ArrayList<>();
+    public List<String> listEntrepreneurial = new ArrayList<>();
+    public List<String> listArtistic = new ArrayList<>();
+
     private int mQuestionCount;
     private Button mOnePartButton;
     private Button mTwoPartButton;
@@ -31,31 +39,36 @@ public class ProfessionDefinition extends Fragment {
         mOnePartButton.findViewById(R.id.OnePartButton);
         mOnePartButton.setText(ProfessionOnePart.get(0).getProfession());
         mTwoPartButton.setText(ProfessionTwoPart.get(0).getProfession());
-        mOnePartButton.setOnClickListener(view -> {
-            if (mQuestionCount == 0) {
-                ProfessionThreePart.add(ProfessionOnePart.get(mQuestionCount));
-            } else {
-                mOnePartButton.setText(ProfessionOnePart.get(mQuestionCount).getProfession());
-                mTwoPartButton.setText(ProfessionTwoPart.get(mQuestionCount).getProfession());
-                ProfessionThreePart.add(ProfessionOnePart.get(mQuestionCount));
-            }
-            mQuestionCount++;
+        if (mQuestionCount <= 30) {
+            mOnePartButton.setOnClickListener(view -> {
+                if (mQuestionCount == 0) {
+                    ProfessionThreePart.add(ProfessionOnePart.get(mQuestionCount));
+                } else {
+                    mOnePartButton.setText(ProfessionOnePart.get(mQuestionCount).getProfession());
+                    mTwoPartButton.setText(ProfessionTwoPart.get(mQuestionCount).getProfession());
+                    ProfessionThreePart.add(ProfessionOnePart.get(mQuestionCount));
+                }
+                mQuestionCount++;
 
-        });
-        mTwoPartButton.findViewById(R.id.TwoPartButton);
-        mTwoPartButton.setOnClickListener(view -> {
-            if (mQuestionCount == 0) {
-                ProfessionThreePart.add(ProfessionTwoPart.get(mQuestionCount));
-            } else {
-                mOnePartButton.setText(ProfessionOnePart.get(mQuestionCount).getProfession());
-                mTwoPartButton.setText(ProfessionTwoPart.get(mQuestionCount).getProfession());
-                ProfessionThreePart.add(ProfessionTwoPart.get(mQuestionCount));
-            }
-            mQuestionCount++;
+            });
+            mTwoPartButton.findViewById(R.id.TwoPartButton);
+            mTwoPartButton.setOnClickListener(view -> {
+                if (mQuestionCount == 0) {
+                    ProfessionThreePart.add(ProfessionTwoPart.get(mQuestionCount));
+                } else {
+                    mOnePartButton.setText(ProfessionOnePart.get(mQuestionCount).getProfession());
+                    mTwoPartButton.setText(ProfessionTwoPart.get(mQuestionCount).getProfession());
+                    ProfessionThreePart.add(ProfessionTwoPart.get(mQuestionCount));
+                }
+                mQuestionCount++;
 
 
-        });
+            });
+            determineInteres();
 
+        } else {
+            // TODO: Переходим на следующий экран с выбором
+        }
         return ProfDef;
     }
 
@@ -123,5 +136,34 @@ public class ProfessionDefinition extends Fragment {
         ProfessionTwoPart.add(new ProfessionalDefinition(6, 30, "Литературный переводчик"));
     }
 
+    private void determineInteres() {
+        int realist = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 1).count();
+        int intellectual = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 2).count();
+        int social = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 3).count();
+        int office = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 4).count();
+        int entrepreneurial = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 5).count();
+        int artistic = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 6).count();
+        if (5 <= realist && realist <= 9)
+            listRealist = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 1).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+        else if (5 <= intellectual && intellectual <= 10)
+            listIntellectual = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 2).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+        else if (5 <= social && social <= 10)
+            listSocial = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 3).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+        else if (5 <= office && office <= 10)
+            listOffice = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 4).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+        else if (5 <= entrepreneurial && entrepreneurial <= 10)
+            listEntrepreneurial = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 5).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+        else if (5 <= artistic && artistic <= 10)
+            listArtistic = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 6).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+
+    }
 
 }
+
+
