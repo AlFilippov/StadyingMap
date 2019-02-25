@@ -12,7 +12,7 @@
         android:layout_below="@+id/askMe"
         android:layout_marginTop="0dp"
         android:layout_marginRight="-88dp"
-        android:layout_toLeftOf="@+id/askMe"
+        android:layout_toLeftOf="@id/askMe"
         android:text="@string/wdefinition"
         tools:layout_editor_absoluteX="81dp"
         tools:layout_editor_absoluteY="354dp" />

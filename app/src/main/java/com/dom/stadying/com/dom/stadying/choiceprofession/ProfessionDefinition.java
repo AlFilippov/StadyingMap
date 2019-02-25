@@ -1,4 +1,4 @@
-package com.dom.stadying;
+package com.dom.stadying.com.dom.stadying.choiceprofession;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,23 +10,24 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.dom.stadying.R;
+import com.dom.stadying.com.dom.stadying.choiceprofession.ProfessionalDefinition;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProfessionDefinition extends Fragment {
-    private TextView textview;
     private static List<ProfessionalDefinition> ProfessionOnePart = new ArrayList<>();
     private static List<ProfessionalDefinition> ProfessionTwoPart = new ArrayList<>();
     private static List<ProfessionalDefinition> ProfessionThreePart = new ArrayList<>();
-    public List<String> listRealist = new ArrayList<>();
-    public List<String> listIntellectual = new ArrayList<>();
-    public List<String> listSocial = new ArrayList<>();
-    public List<String> listOffice = new ArrayList<>();
-    public List<String> listEntrepreneurial = new ArrayList<>();
-    public List<String> listArtistic = new ArrayList<>();
-
-    private int mQuestionCount;
+    public List<String> mHighInterest = new ArrayList<>();
+    public List<String> mMiddleInterest = new ArrayList<>();
+    public List<String> mLowInterest = new ArrayList<>();
+    private int mQuestionList;
+    private  int mQuestionCount;
     private Button mOnePartButton;
     private Button mTwoPartButton;
 
@@ -34,27 +35,39 @@ public class ProfessionDefinition extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View ProfDef = inflater.inflate(R.layout.profession_definition, container, false);
-        textview = ProfDef.findViewById(R.id.askMe1);
+        TextView textview = ProfDef.findViewById(R.id.askMe1);
+        TextView mCountQue = ProfDef.findViewById(R.id.countQuestion);
+
+        mQuestionList = ProfessionOnePart.size() + ProfessionTwoPart.size();
         initializeObjectProfession();
-        mOnePartButton.findViewById(R.id.OnePartButton);
+        Button mOnePartButton = ProfDef.findViewById(R.id.OnePartButton);
+        Button mTwoPartButton = ProfDef.findViewById(R.id.TwoPartButton);
+
         mOnePartButton.setText(ProfessionOnePart.get(0).getProfession());
         mTwoPartButton.setText(ProfessionTwoPart.get(0).getProfession());
+        mCountQue.setText("Вопрос" + "1"+ " " + "из 30");
         if (mQuestionCount <= 30) {
             mOnePartButton.setOnClickListener(view -> {
                 if (mQuestionCount == 0) {
                     ProfessionThreePart.add(ProfessionOnePart.get(mQuestionCount));
+                    mOnePartButton.setText(ProfessionOnePart.get(1).getProfession());
+                    mTwoPartButton.setText(ProfessionTwoPart.get(1).getProfession());
+                    mQuestionCount++;
                 } else {
                     mOnePartButton.setText(ProfessionOnePart.get(mQuestionCount).getProfession());
                     mTwoPartButton.setText(ProfessionTwoPart.get(mQuestionCount).getProfession());
                     ProfessionThreePart.add(ProfessionOnePart.get(mQuestionCount));
                 }
                 mQuestionCount++;
-
+                mCountQue.setText("Вопрос" + mQuestionCount + " "+ "из 30");
             });
             mTwoPartButton.findViewById(R.id.TwoPartButton);
             mTwoPartButton.setOnClickListener(view -> {
                 if (mQuestionCount == 0) {
                     ProfessionThreePart.add(ProfessionTwoPart.get(mQuestionCount));
+                    mOnePartButton.setText(ProfessionOnePart.get(1).getProfession());
+                    mTwoPartButton.setText(ProfessionTwoPart.get(1).getProfession());
+                    mQuestionCount++;
                 } else {
                     mOnePartButton.setText(ProfessionOnePart.get(mQuestionCount).getProfession());
                     mTwoPartButton.setText(ProfessionTwoPart.get(mQuestionCount).getProfession());
@@ -62,12 +75,13 @@ public class ProfessionDefinition extends Fragment {
                 }
                 mQuestionCount++;
 
-
+                mCountQue.setText("Вопрос" + mQuestionCount + " " + "из 30");
             });
             determineInteres();
 
         } else {
             // TODO: Переходим на следующий экран с выбором
+
         }
         return ProfDef;
     }
@@ -143,24 +157,61 @@ public class ProfessionDefinition extends Fragment {
         int office = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 4).count();
         int entrepreneurial = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 5).count();
         int artistic = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 6).count();
-        if (5 <= realist && realist <= 9)
-            listRealist = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 1).
+        if (7 <= realist && realist <= 9)
+            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 1).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
-        else if (5 <= intellectual && intellectual <= 10)
-            listIntellectual = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 2).
+        else if (8 <= intellectual && intellectual <= 11)
+            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 2).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
-        else if (5 <= social && social <= 10)
-            listSocial = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 3).
+        else if (8 <= social && social <= 10)
+            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 3).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
-        else if (5 <= office && office <= 10)
-            listOffice = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 4).
+        else if (8 <= office && office <= 10)
+            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 4).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
-        else if (5 <= entrepreneurial && entrepreneurial <= 10)
-            listEntrepreneurial = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 5).
+        else if (8 <= entrepreneurial && entrepreneurial <= 10)
+            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 5).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
-        else if (5 <= artistic && artistic <= 10)
-            listArtistic = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 6).
+        else if (8 <= artistic && artistic <= 10)
+            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 6).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+        if (5 <= realist && realist <= 7)
+            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 1).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+        else if (5 <= intellectual && intellectual <= 7)
+            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 2).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+        else if (5 <= social && social <= 7)
+            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 3).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+        else if (5 <= office && office <= 7)
+            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 4).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+        else if (5 <= entrepreneurial && entrepreneurial <= 7)
+            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 5).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+        else if (5 <= artistic && artistic <= 7)
+            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 6).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+        if (0 <= realist && realist <= 5)
+            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 1).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+        else if (0 <= intellectual && intellectual <= 5)
+            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 2).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+        else if (0 <= social && social <= 5)
+            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 3).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+        else if (0 <= office && office <= 5)
+            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 4).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+        else if (0 <= entrepreneurial && entrepreneurial <= 5)
+            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 5).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+        else if (0 <= artistic && artistic <= 5)
+            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == 6).
+                    map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+
 
     }
 

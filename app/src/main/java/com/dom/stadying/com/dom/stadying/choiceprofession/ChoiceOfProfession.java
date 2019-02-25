@@ -1,4 +1,4 @@
-package com.dom.stadying;
+package com.dom.stadying.com.dom.stadying.choiceprofession;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,13 +12,15 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.dom.stadying.R;
+
 public class ChoiceOfProfession extends Fragment implements SeekBar.OnSeekBarChangeListener {
     private static final String HUMANITIES_AND_ART = "human_art";
     private static final String COMPUTER_SCIENCE = "computer_science";
     private static final String DEFAULT_KEY = "default";
 
     private Button mFragmentButton;
-    private OnFragmentInteractionListener mListener;
+  //  private OnFragmentInteractionListener mListener;
     private int mTextView;
     private String mKey;
 
@@ -37,7 +39,7 @@ public class ChoiceOfProfession extends Fragment implements SeekBar.OnSeekBarCha
             @Override
             public void onClick(View v) {
                 //Задача метода передать данные в активити
-                replacefragment();
+               // replacefragment();
             }
         });
         return qView;
@@ -88,30 +90,28 @@ public class ChoiceOfProfession extends Fragment implements SeekBar.OnSeekBarCha
 
     }
 
-    //Вложенный интерфейс для взаимодействия с активити
-    interface OnFragmentInteractionListener {
-        void OnFragmentInteraction(int value_seekbar, String key);
+//    //Вложенный интерфейс для взаимодействия с активити
+//    interface OnFragmentInteractionListener {
+//        void OnFragmentInteraction(int value_seekbar, String key);
+//
+//    }
+//
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+////Обращаемся к активити
+//      mListener = (OnFragmentInteractionListener) context;
+//
+//
+//    }
+//
+//    public void replacefragment() {
+//        int b = getTextView();
+//        String c = getKey();
+//        //Передаем некоторое значение , по которому будем судить
+//        mListener.OnFragmentInteraction(b, c);
+//    }
+//
 
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-//Обращаемся к активити
-        mListener = (OnFragmentInteractionListener) context;
-
-
-    }
-
-    public void replacefragment() {
-        int b = getTextView();
-        String c = getKey();
-        //Передаем некоторое значение , по которому будем судить
-        mListener.OnFragmentInteraction(b, c);
-    }
-
-    public void saveBar(int b) {
-
-    }
 }
 

@@ -1,23 +1,25 @@
-package com.dom.stadying;
+package com.dom.stadying.com.dom.stadying.choiceprofession;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class AskMe extends Fragment implements Button.OnClickListener, ParameterTransfer {
-    private ParameterTransfer mParameterTransfer;
+import com.dom.stadying.R;
+
+public class AskMe extends Fragment implements Button.OnClickListener {
+
     private static final String YES_DECIDED = "ydecided";
     private static final String WANT_DEFENITION = "wdecided";
-    private String mKeyTransfer;
+    public static String mKeyTransfer = " keyTransfer";
+    private static String mTransfer;
+
 
     @Nullable
     @Override
@@ -25,49 +27,40 @@ public class AskMe extends Fragment implements Button.OnClickListener, Parameter
         View askMe = inflater.inflate(R.layout.ask_me, container, false);
         TextView askMe1 = askMe.findViewById(R.id.askMe);
         Button decided = askMe.findViewById(R.id.ydecided);
-
         Button definition = askMe.findViewById(R.id.wdefinition);
         decided.setOnClickListener(this);
         definition.setOnClickListener(this);
-        setParameterTransfer();
         return askMe;
+
     }
 
     @Override
     public void onClick(View button) {
         switch (button.getId()) {
             case R.id.ydecided:
-                setKeyTransfer(YES_DECIDED);
+mChangedFragment.ChangedFragment(YES_DECIDED);
                 break;
             case R.id.wdefinition:
-                setKeyTransfer(WANT_DEFENITION);
+mChangedFragment.ChangedFragment(WANT_DEFENITION);
                 break;
         }
-
     }
 
     @Override
-    public void parameterTransfer(String key) {
+    public void onResume() {
+        super.onResume();
+    }
+public interface OnChangedFragment{
+         void ChangedFragment(String s);
 
     }
-
-    public void setParameterTransfer() {
-        String c = getKeyTransfer();
-        mParameterTransfer.parameterTransfer(c);
-    }
-
-
-    public String getKeyTransfer() {
-        return mKeyTransfer;
-    }
-
-    public void setKeyTransfer(String keyTransfer) {
-        mKeyTransfer = keyTransfer;
-    }
-
+    OnChangedFragment mChangedFragment;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mParameterTransfer = (ParameterTransfer) context;
+mChangedFragment = (OnChangedFragment)context;
+
     }
+
+
 }

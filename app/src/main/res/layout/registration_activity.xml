@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/Registration_activity"
     android:orientation="vertical">
-
     <TextView
         android:id="@+id/Registrr"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="180dp"
         android:text="@string/nameRegistr"
         android:textSize="30sp"
         android:layout_centerHorizontal="true"
@@ -40,7 +40,6 @@
         android:layout_below="@id/nameBox"
         android:layout_marginTop="0dp"
         android:hint="@string/namePass"
-
         android:inputType="textPassword" />
 
 
@@ -50,7 +49,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/passBox"
         android:layout_marginTop="0dp"
-        android:onClick="RegistrationButton"
         android:text="@string/getReg"
         android:layout_centerHorizontal="true"/>
 

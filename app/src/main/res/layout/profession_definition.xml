@@ -9,33 +9,38 @@
         android:id="@+id/OnePartButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/askMe1"
+        android:layout_below="@+id/countQuestion"
         android:layout_marginTop="0dp"
         android:layout_marginRight="-88dp"
         android:layout_toLeftOf="@+id/askMe1"
-        android:text="@string/wdefinition"
         tools:layout_editor_absoluteX="81dp"
         tools:layout_editor_absoluteY="354dp" />
 
     <TextView
-        android:id="@+id/askMe1"
+    android:id="@+id/askMe1"
+    android:layout_width="244dp"
+    android:layout_height="31dp"
+    android:layout_centerInParent="true"
+    android:text="@string/mProfessionDef"
+    tools:layout_editor_absoluteX="156dp"
+    tools:layout_editor_absoluteY="253dp" />
+    <TextView
+        android:id="@+id/countQuestion"
         android:layout_width="244dp"
         android:layout_height="31dp"
         android:layout_centerInParent="true"
-
-        android:text="@string/askMe"
-        tools:layout_editor_absoluteX="156dp"
-        tools:layout_editor_absoluteY="253dp" />
+        android:layout_below="@+id/askMe1"
+        android:text="Вопрос"
+      />
 
     <Button
         android:id="@+id/TwoPartButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/askMe1"
+        android:layout_below="@+id/countQuestion"
         android:layout_marginLeft="-86dp"
         android:layout_marginTop="1dp"
         android:layout_toRightOf="@+id/askMe1"
-        android:text="@string/ydecided"
         tools:layout_editor_absoluteX="218dp"
         tools:layout_editor_absoluteY="354dp" />
 </RelativeLayout>

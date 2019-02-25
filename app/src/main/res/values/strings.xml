@@ -33,4 +33,11 @@
     <string name="askMe">Вы знаете чему хотите обучаться ?</string>
     <string name="wdefinition">Нет,хочу определиться</string>
     <string name="ydecided">Знаю , хочу найти информацию</string>
+    <string name="countQuestion">Вопрос</string>
+    <string name="countQuestion1">из 30 </string>
+    <string name="mQuantityFeedBack">70</string>
+    <string name="mAverageRating">mAverageRating</string>
+    <string name="mNameCourse">Название курса</string>
+    <string name="mAuthorCourse">Автор курса</string>
+    <string name="mProfessionDef">Выберете одно из Двух</string>
 </resources>

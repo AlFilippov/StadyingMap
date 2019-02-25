@@ -1,0 +1,43 @@
+{
+  "count": 63,
+  "next": "https://www.udemy.com/api-2.0/courses/?instructional_level=beginner&is_affiliate_agreed=True&language=en&ordering=highest-rated&page=2&page_size=12&price=price-paid&ratings=4&search=Java&subcategory=Programming+Languages",
+  "previous": null,
+  "results": [
+    {
+      "_class": "course",
+      "id": 1189214,
+      "title": "Introduction to Java EE",
+      "url": "/java-ee-fundamentals/",
+      "is_paid": true,
+      "price": "19,99 $",
+      "price_detail": {
+        "currency": "USD",
+        "currency_symbol": "$",
+        "price_string": "19,99 $",
+        "amount": 19.99
+      },
+      "visible_instructors": [
+        {
+          "title": "Ocho Tech",
+          "image_50x50": "https://udemy-images.udemy.com/user/50x50/18332864_4d03_2.jpg",
+          "job_title": "Developer",
+          "url": "/user/anton-gonzales/",
+          "image_100x100": "https://udemy-images.udemy.com/user/100x100/18332864_4d03_2.jpg",
+          "_class": "user",
+          "display_name": "Ocho Tech",
+          "initials": "OT",
+          "name": "Ocho"
+        }
+      ],
+      "image_125_H": "https://udemy-images.udemy.com/course/125_H/1189214_c61b.jpg",
+      "image_240x135": "https://udemy-images.udemy.com/course/240x135/1189214_c61b.jpg",
+      "is_practice_test_course": false,
+      "image_480x270": "https://udemy-images.udemy.com/course/480x270/1189214_c61b.jpg",
+      "published_title": "java-ee-fundamentals",
+      "predictive_score": null,
+      "relevancy_score": 1051.672,
+      "input_features": null,
+      "lecture_search_result": null,
+      "curriculum_lectures": [],
+      "order_in_results": null
+    }]}
