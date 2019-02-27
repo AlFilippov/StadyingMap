@@ -25,11 +25,11 @@ public class AskMe extends Fragment implements Button.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View askMe = inflater.inflate(R.layout.ask_me, container, false);
-        TextView askMe1 = askMe.findViewById(R.id.askMe);
-        Button decided = askMe.findViewById(R.id.ydecided);
-        Button definition = askMe.findViewById(R.id.wdefinition);
-        decided.setOnClickListener(this);
-        definition.setOnClickListener(this);
+        TextView mAskMainQuestion = askMe.findViewById(R.id.askMe);
+        Button mYDecided = askMe.findViewById(R.id.ydecided);
+        Button mWDefenition = askMe.findViewById(R.id.wdefinition);
+        mYDecided.setOnClickListener(this);
+        mWDefenition.setOnClickListener(this);
         return askMe;
 
     }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Stadying</string>
+    <string name="app_name">Stadying Map</string>
     <string name="button">Button</string>
     <string name="nameRegistr">Регистрация</string>
     <string name="nameBox">Введите имя</string>
@@ -16,7 +16,7 @@
     <string name="computer_science">Компьютерные науки</string>
     <string name="data_science">Наука о данных</string>
     <string name="fragment1_finish">Готово</string>
-    <string name="title_activity_navigation_drawer">NavigationDrawer</string>
+    <string name="title_activity_navigation_drawer">Stadying Map</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Guest</string>
