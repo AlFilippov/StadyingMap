@@ -1,4 +1,4 @@
-package com.dom.stadying.choiceprofession;
+package com.alphilippov.studyingmap.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.dom.stadying.R;
+import com.alphilippov.studyingmap.R;
 
 public class ChoiceOfProfession extends Fragment implements SeekBar.OnSeekBarChangeListener {
     private static final String HUMANITIES_AND_ART = "human_art";
@@ -19,7 +19,6 @@ public class ChoiceOfProfession extends Fragment implements SeekBar.OnSeekBarCha
     private static final String DEFAULT_KEY = "default";
 
     private Button mFragmentButton;
-  //  private OnFragmentInteractionListener mListener;
     private int mTextView;
     private String mKey;
 

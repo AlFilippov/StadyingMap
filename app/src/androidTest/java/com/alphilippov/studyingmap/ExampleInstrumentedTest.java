@@ -1,4 +1,4 @@
-package com.dom.stadying;
+package com.alphilippov.studyingmap;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

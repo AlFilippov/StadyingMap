@@ -1,6 +1,6 @@
-package com.dom.stadying.network;
+package com.alphilippov.studyingmap.network;
 
-import com.dom.stadying.utils.AppConfig;
+import com.alphilippov.studyingmap.utils.AppConfig;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

@@ -1,4 +1,4 @@
-package com.dom.stadying.choiceprofession;
+package com.alphilippov.studyingmap.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.dom.stadying.R;
+import com.alphilippov.studyingmap.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +32,8 @@ public class ProfessionDefinition extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View ProfDef = inflater.inflate(R.layout.profession_definition, container, false);
-        TextView textview = ProfDef.findViewById(R.id.askMe1);
+        TextView oneOutOfTwo = ProfDef.findViewById(R.id.oneOutOfTwo);
         TextView mCountQue = ProfDef.findViewById(R.id.countQuestion);
-
         mQuestionList = ProfessionOnePart.size() + ProfessionTwoPart.size();
         initializeObjectProfession();
         Button mOnePartButton = ProfDef.findViewById(R.id.OnePartButton);

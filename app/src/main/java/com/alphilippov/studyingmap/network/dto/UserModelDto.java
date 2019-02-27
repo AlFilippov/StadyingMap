@@ -1,4 +1,4 @@
-package com.dom.stadying.network.res;
+package com.alphilippov.studyingmap.network.dto;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserModelRes {
+public class UserModelDto {
     @JsonProperty("count")
     private int count;
     @JsonProperty("next")

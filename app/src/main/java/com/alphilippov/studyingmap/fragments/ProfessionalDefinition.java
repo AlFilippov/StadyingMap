@@ -1,6 +1,6 @@
-package com.dom.stadying.choiceprofession;
+package com.alphilippov.studyingmap.fragments;
 
-import com.dom.stadying.MainActivity;
+import com.alphilippov.studyingmap.navigation.MainActivity;
 
 import java.util.Objects;
 

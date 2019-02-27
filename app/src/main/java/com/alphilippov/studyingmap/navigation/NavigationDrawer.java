@@ -1,4 +1,4 @@
-package com.dom.stadying.appnavigation;
+package com.alphilippov.studyingmap.navigation;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,11 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.dom.stadying.R;
-import com.dom.stadying.MainActivity;
-import com.dom.stadying.choiceprofession.AskMe;
-import com.dom.stadying.choiceprofession.ChoiceOfProfession;
-import com.dom.stadying.choiceprofession.ProfessionDefinition;
+import com.alphilippov.studyingmap.R;
+import com.alphilippov.studyingmap.fragments.AskMe;
+import com.alphilippov.studyingmap.fragments.ChoiceOfProfession;
+import com.alphilippov.studyingmap.fragments.ProfessionDefinition;
 
 public class NavigationDrawer extends MainActivity
         implements NavigationView.OnNavigationItemSelectedListener, AskMe.OnChangedFragment {
@@ -77,7 +76,7 @@ public class NavigationDrawer extends MainActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -87,19 +86,18 @@ public class NavigationDrawer extends MainActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // раздувает меню; это добавляет элементы в панель действий, если она присутствует.
         getMenuInflater().inflate(R.menu.navigation_drawer, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // Обрабатывает щелчки элементов панели действий здесь.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+
         if (id == R.id.action_settings) {
             return true;
         }
@@ -107,14 +105,12 @@ public class NavigationDrawer extends MainActivity
         return super.onOptionsItemSelected(item);
     }
 
-
+    //Обрабатывает навигацию по меню
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
+        int id = item.getItemId();
         if (id == R.id.nav_news) {
-            // Handle the camera action
         } else if (id == R.id.nav_lessons) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
@@ -132,7 +128,7 @@ public class NavigationDrawer extends MainActivity
         }
         item.setChecked(true);
         setTitle(item.getTitle());
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

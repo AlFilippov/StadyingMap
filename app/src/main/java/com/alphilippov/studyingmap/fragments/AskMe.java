@@ -1,4 +1,4 @@
-package com.dom.stadying.choiceprofession;
+package com.alphilippov.studyingmap.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.dom.stadying.R;
+import com.alphilippov.studyingmap.R;
 
 public class AskMe extends Fragment implements Button.OnClickListener {
 
