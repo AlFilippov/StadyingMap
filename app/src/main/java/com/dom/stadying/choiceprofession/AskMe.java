@@ -1,4 +1,4 @@
-package com.dom.stadying.com.dom.stadying.choiceprofession;
+package com.dom.stadying.choiceprofession;
 
 import android.content.Context;
 import android.os.Bundle;

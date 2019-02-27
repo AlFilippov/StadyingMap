@@ -1,6 +1,6 @@
-package com.dom.stadying.com.dom.stadying.choiceprofession;
+package com.dom.stadying.choiceprofession;
 
-import com.dom.stadying.com.dom.stadying.MainActivity;
+import com.dom.stadying.MainActivity;
 
 import java.util.Objects;
 

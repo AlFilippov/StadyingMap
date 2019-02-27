@@ -1,4 +1,4 @@
-package com.dom.stadying.com.dom.stadying.choiceprofession;
+package com.dom.stadying.choiceprofession;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,11 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.dom.stadying.R;
-import com.dom.stadying.com.dom.stadying.choiceprofession.ProfessionalDefinition;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -1,4 +1,4 @@
-package com.dom.stadying.com.dom.stadying.appnavigation;
+package com.dom.stadying.appnavigation;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,10 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.dom.stadying.R;
-import com.dom.stadying.com.dom.stadying.MainActivity;
-import com.dom.stadying.com.dom.stadying.choiceprofession.AskMe;
-import com.dom.stadying.com.dom.stadying.choiceprofession.ChoiceOfProfession;
-import com.dom.stadying.com.dom.stadying.choiceprofession.ProfessionDefinition;
+import com.dom.stadying.MainActivity;
+import com.dom.stadying.choiceprofession.AskMe;
+import com.dom.stadying.choiceprofession.ChoiceOfProfession;
+import com.dom.stadying.choiceprofession.ProfessionDefinition;
 
 public class NavigationDrawer extends MainActivity
         implements NavigationView.OnNavigationItemSelectedListener, AskMe.OnChangedFragment {
@@ -31,10 +31,10 @@ public class NavigationDrawer extends MainActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
         AskMe askMe = new AskMe();
-        ft.add(R.id.container,askMe);
+        ft.add(R.id.container, askMe);
         ft.commit();
 
-        Toolbar toolbar =  findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 //TODO:Значок конверта - переделать в Избранное
@@ -55,72 +55,24 @@ public class NavigationDrawer extends MainActivity
 
     @Override
     public void ChangedFragment(String s) {
-        if(s.equals(YES_DECIDED)){
+        if (s.equals(YES_DECIDED)) {
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
             ChoiceOfProfession ch = new ChoiceOfProfession();
-            ft.replace(R.id.container,ch);
+            ft.replace(R.id.container, ch);
+            ft.addToBackStack(null);
             ft.commit();
-        }else if (s.equals(WANT_DEFENITION)){
+        } else if (s.equals(WANT_DEFENITION)) {
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
             ProfessionDefinition pd = new ProfessionDefinition();
-            ft.replace(R.id.container,pd);
+            ft.replace(R.id.container, pd);
+            ft.addToBackStack(null);
             ft.commit();
         }
     }
 
 
-
-//    @Override
-//    public void parameterTransfer(String key) {
-//        if (key == null) {
-//            FragmentManager fm = getSupportFragmentManager();
-//            FragmentTransaction ft = fm.beginTransaction();
-//            AskMe askMe = new AskMe();
-//            ft.add(R.id.container, askMe);
-//            ft.commit();
-//
-//        } else {
-//            if (key.equals(YES_DECIDED)) {
-//                FragmentManager fm = getSupportFragmentManager();
-//                FragmentTransaction ft = fm.beginTransaction();
-//                ChoiceOfProfession choiceOfProfession = new ChoiceOfProfession();
-//                ft.add(R.id.container, choiceOfProfession);
-//                ft.commit();
-//            }
-//            if (key.equals(WANT_DEFENITION)) {
-//                FragmentManager fm = getSupportFragmentManager();
-//                FragmentTransaction ft = fm.beginTransaction();
-//                ProfessionDefinition professionalDefinition = new ProfessionDefinition();
-//                ft.add(R.id.container, professionalDefinition);
-//                ft.commit();
-//            }
-//        }
-//    }
-//    //TODO:Переделать по мере выбора категорий пользователем после изучения Retrofit
-//    Map<Integer, String> dataquestions = new HashMap<>();
-//
-//    @Override
-//    public void OnFragmentInteraction(int value_seekbar, String keys) {
-//        dataquestions.put(value_seekbar, keys);
-//        if (!dataquestions.containsKey("default")) {
-////        if (value_seekbar != 0 && key.equals("human_art")) {
-//            FragmentManager fm = getSupportFragmentManager();
-//            FragmentTransaction ft = fm.beginTransaction();
-//            ft.addToBackStack(null);
-//            ProfessionDefinition qf2 = new ProfessionDefinition();
-//            ft.replace(R.id.container, qf2);
-//            fm.popBackStack();
-//            ft.commit();
-//
-//        } else if (dataquestions.containsKey("computer_science")) {
-//
-//        } else if (dataquestions.containsKey("human_art")) {
-//
-//        }
-
-//    }
     //Проверяется открыта ли шторка , при нажатии кнопки назад
 
     @Override
@@ -166,8 +118,8 @@ public class NavigationDrawer extends MainActivity
         } else if (id == R.id.nav_lessons) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
-AskMe askMe = new AskMe();
-            ft.add(R.id.container,askMe);
+            AskMe askMe = new AskMe();
+            ft.add(R.id.container, askMe);
             ft.commit();
         } else if (id == R.id.nav_tasks) {
 

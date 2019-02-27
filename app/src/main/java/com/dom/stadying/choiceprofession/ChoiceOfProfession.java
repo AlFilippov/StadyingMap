@@ -1,6 +1,5 @@
-package com.dom.stadying.com.dom.stadying.choiceprofession;
+package com.dom.stadying.choiceprofession;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
