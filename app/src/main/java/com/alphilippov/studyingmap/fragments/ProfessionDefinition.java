@@ -13,8 +13,11 @@ import android.widget.TextView;
 import com.alphilippov.studyingmap.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static android.text.TextUtils.concat;
 
 public class ProfessionDefinition extends Fragment {
     private static List<ProfessionalDefinition> ProfessionOnePart = new ArrayList<>();
@@ -39,9 +42,10 @@ public class ProfessionDefinition extends Fragment {
         Button mOnePartButton = ProfDef.findViewById(R.id.OnePartButton);
         Button mTwoPartButton = ProfDef.findViewById(R.id.TwoPartButton);
 
+        String format = getString(R.string.quest_profdef).concat(" ").concat(getString(R.string.quest_profdef_first).concat(getString(R.string.quest_profdef_continue)).concat(getString(R.string.quest_profdef_continue_two)));
         mOnePartButton.setText(ProfessionOnePart.get(0).getProfession());
         mTwoPartButton.setText(ProfessionTwoPart.get(0).getProfession());
-        mCountQue.setText("Вопрос" + "1"+ " " + "из 30");
+        mCountQue.setText(format);
         if (mQuestionCount <= 30) {
             mOnePartButton.setOnClickListener(view -> {
                 if (mQuestionCount == 0) {
@@ -55,7 +59,8 @@ public class ProfessionDefinition extends Fragment {
                     ProfessionThreePart.add(ProfessionOnePart.get(mQuestionCount));
                 }
                 mQuestionCount++;
-                mCountQue.setText("Вопрос" + mQuestionCount + " "+ "из 30");
+                String form =getString(R.string.quest_profdef).concat(" ")+mQuestionCount+" "+getString(R.string.quest_profdef_continue).concat(getString(R.string.quest_profdef_continue_two));
+                mCountQue.setText(form);
             });
             mTwoPartButton.findViewById(R.id.TwoPartButton);
             mTwoPartButton.setOnClickListener(view -> {
@@ -70,8 +75,8 @@ public class ProfessionDefinition extends Fragment {
                     ProfessionThreePart.add(ProfessionTwoPart.get(mQuestionCount));
                 }
                 mQuestionCount++;
-
-                mCountQue.setText("Вопрос" + mQuestionCount + " " + "из 30");
+                String form =getString(R.string.quest_profdef).concat(" ")+mQuestionCount+" "+getString(R.string.quest_profdef_continue).concat(getString(R.string.quest_profdef_continue_two));
+                mCountQue.setText(form);
             });
             determineInteres();
 

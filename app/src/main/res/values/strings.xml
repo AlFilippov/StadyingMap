@@ -40,4 +40,9 @@
     <string name="mNameCourse">Название курса</string>
     <string name="mAuthorCourse">Автор курса</string>
     <string name="mProfessionDef">Выберете одно из Двух</string>
+    <string name="quest_profdef">Вопрос</string>
+    <string name="quest_profdef_continue">  </string>
+    <string name="quest_profdef_continue_two">из 30</string>
+    <string name="quest_profdef_first">1</string>
+
 </resources>
