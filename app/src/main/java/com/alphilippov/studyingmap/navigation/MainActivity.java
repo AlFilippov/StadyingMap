@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alphilippov.studyingmap.R;
+import com.alphilippov.studyingmap.network.NetworkService;
 import com.alphilippov.studyingmap.utils.AppConfig;
 
 import static com.alphilippov.studyingmap.utils.AppConfig.APP_PREFERENCES_LOGIN;
@@ -42,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
             Toast toast =  Toast.makeText(this, "Успешно", Toast.LENGTH_SHORT);
             toast.show();
         });
-        };
+
+        }
 
 
     @Override

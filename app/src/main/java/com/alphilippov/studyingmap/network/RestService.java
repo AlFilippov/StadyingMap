@@ -8,5 +8,5 @@ import retrofit2.http.Query;
 
 public interface RestService {
 @GET("courses")
-    Call<UserModelDto>getInfo(@Query("page") int page );
+    Call<UserModelDto>getInfo(@Query("page") int page ,@Query("page_size")int page_size,@Query("search")String search,@Query("sub_category") String subcategory_courses);
 }

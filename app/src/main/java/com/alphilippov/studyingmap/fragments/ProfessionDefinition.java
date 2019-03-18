@@ -9,15 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.alphilippov.studyingmap.R;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static android.text.TextUtils.concat;
+
 
 public class ProfessionDefinition extends Fragment {
     private static List<ProfessionalDefinition> ProfessionOnePart = new ArrayList<>();
@@ -28,8 +25,7 @@ public class ProfessionDefinition extends Fragment {
     public List<String> mLowInterest = new ArrayList<>();
     private int mQuestionList;
     private  int mQuestionCount;
-    private Button mOnePartButton;
-    private Button mTwoPartButton;
+
 
     @Nullable
     @Override
