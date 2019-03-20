@@ -5,5 +5,11 @@ public interface AppConfig {
     String APP_PREFERENCES = "myData";
     String APP_PREFERENCES_LOGIN = " ";
     String APP_PREFERENCES_PASSWORD = " ";
+    int REALIST_GROUP = 1;
+    int INTELLECTUAL_GROUP = 2;
+    int SOCIAL_GROUP = 3;
+    int OFFICE_GROUP = 4;
+    int ENTREPRENEURIAL_GROUP = 5;
+    int ARTISTIC_GROUP = 6;
 
 }

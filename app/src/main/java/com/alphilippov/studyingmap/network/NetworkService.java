@@ -21,7 +21,7 @@ private NetworkService(){
             .addConverterFactory(JacksonConverterFactory.create())
             .build();
 }
-public static NetworkService getInstance(){
+public synchronized static NetworkService getInstance(){
     if(mInstance==null){
         mInstance = new NetworkService();
 
