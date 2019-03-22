@@ -1,46 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+    <variable
+        name="ProfessionalDefinitionDB"
+        type="com.alphilippov.studyingmap.databind.ProfessionBinding"
+        />
+    </data>
+    <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+        <Button
 
-        android:id="@+id/OnePartButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/countQuestion"
-        android:layout_marginTop="0dp"
-        android:layout_marginRight="-88dp"
-        android:layout_toLeftOf="@+id/oneOutOfTwo"
-        tools:layout_editor_absoluteX="81dp"
-        tools:layout_editor_absoluteY="354dp" />
-
-    <TextView
+            android:id="@+id/OnePartButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/countQuestionOnePart"
+            android:layout_toLeftOf="@id/countQuestionOnePart"
+            android:text="@{ProfessionalDefinitionDB.buttonOnePart}" />
+        <Button
+            android:id="@+id/TwoPartButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/countQuestionOnePart"
+           android:layout_toRightOf="@id/countQuestionFourPart"
+            android:text="@{ProfessionalDefinitionDB.buttonTwoPart}" />
+        <TextView
     android:id="@+id/oneOutOfTwo"
-    android:layout_width="244dp"
+    android:layout_width="wrap_content"
     android:layout_height="31dp"
     android:layout_centerInParent="true"
-    android:text="@string/mProfessionDef"
-    tools:layout_editor_absoluteX="156dp"
-    tools:layout_editor_absoluteY="253dp" />
-    <TextView
-        android:id="@+id/countQuestion"
-        android:layout_width="244dp"
-        android:layout_height="31dp"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/oneOutOfTwo"
-        android:text="Вопрос"
-      />
+    android:text="@{ProfessionalDefinitionDB.textChoiceQuestion}"
+    />
 
-    <Button
-        android:id="@+id/TwoPartButton"
+    <TextView
+        android:id="@+id/countQuestionOnePart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/countQuestion"
-        android:layout_marginLeft="-86dp"
-        android:layout_marginTop="1dp"
-        android:layout_toRightOf="@+id/oneOutOfTwo"
-        tools:layout_editor_absoluteX="218dp"
-        tools:layout_editor_absoluteY="354dp" />
+        android:layout_below="@+id/oneOutOfTwo"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:layout_alignLeft="@id/oneOutOfTwo"
+        android:text="@{ProfessionalDefinitionDB.textChangeQuestionOnePart}" />
+
+    <TextView
+        android:id="@+id/countQuestionTwoPart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/oneOutOfTwo"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="15dp"
+        android:layout_toRightOf="@+id/countQuestionOnePart"
+        android:text="@{ProfessionalDefinitionDB.changeQuestionTwoPart}" />
+
+    <TextView
+        android:id="@+id/countQuestionThreePart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/oneOutOfTwo"
+        android:layout_centerInParent="true"
+        android:layout_toRightOf="@+id/countQuestionTwoPart"
+        android:text="@{ProfessionalDefinitionDB.changeQuestionThreePart}" />
+
+    <TextView
+        android:id="@+id/countQuestionFourPart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/oneOutOfTwo"
+        android:layout_centerInParent="true"
+        android:layout_alignRight="@id/oneOutOfTwo"
+        android:text="@{ProfessionalDefinitionDB.changeQuestionFourPart}"
+
+
+        />
+
+
 </RelativeLayout>
+</layout>

@@ -11,5 +11,5 @@ public interface AppConfig {
     int OFFICE_GROUP = 4;
     int ENTREPRENEURIAL_GROUP = 5;
     int ARTISTIC_GROUP = 6;
-
+int QUANTITY_QUESTIONS=30;
 }
