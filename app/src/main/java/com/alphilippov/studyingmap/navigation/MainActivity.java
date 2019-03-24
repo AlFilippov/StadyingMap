@@ -11,11 +11,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alphilippov.studyingmap.R;
-import com.alphilippov.studyingmap.network.NetworkService;
 import com.alphilippov.studyingmap.utils.AppConfig;
-
-import static com.alphilippov.studyingmap.utils.AppConfig.APP_PREFERENCES_LOGIN;
-import static com.alphilippov.studyingmap.utils.AppConfig.APP_PREFERENCES_PASSWORD;
+import static com.alphilippov.studyingmap.utils.AppConfig.SharedPrefernce.APP_PREFERENCES_LOGIN;
+import static com.alphilippov.studyingmap.utils.AppConfig.SharedPrefernce.APP_PREFERENCES_PASSWORD;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         EditText Login = findViewById(R.id.nameBox);
         EditText Password = findViewById(R.id.passBox);
         Button mRegistrationUser = findViewById(R.id.saveButton);
-        mSettings = getSharedPreferences(AppConfig.APP_PREFERENCES, Context.MODE_PRIVATE);
+        mSettings = getSharedPreferences(AppConfig.SharedPrefernce.APP_PREFERENCES, Context.MODE_PRIVATE);
         sLoginUser = Login.getText().toString();
         sPasswordUser = Password.getText().toString();
         if (mSettings.contains(APP_PREFERENCES_LOGIN) && mSettings.contains(APP_PREFERENCES_PASSWORD)) {

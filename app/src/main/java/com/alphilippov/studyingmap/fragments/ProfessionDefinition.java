@@ -14,10 +14,11 @@ import android.widget.TextView;
 import com.alphilippov.studyingmap.R;
 import com.alphilippov.studyingmap.databind.ProfessionBinding;
 import com.alphilippov.studyingmap.databinding.ProfessionDefinitionBinding;
+import com.alphilippov.studyingmap.fragments.dtc.HumanInterest;
+import com.alphilippov.studyingmap.fragments.dtc.ProfessionalDefinition;
 import com.alphilippov.studyingmap.utils.AppConfig;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +47,7 @@ public class ProfessionDefinition extends Fragment {
 
         initializeObjectProfession();
         int questionList = ProfessionOnePart.size() + ProfessionTwoPart.size();
-        mCountQue=binding.countQuestionTwoPart;
+        mCountQue = binding.countQuestionTwoPart;
         TextView quantityQuestion = binding.countQuestionFourPart;
         Button mOnePartButton = binding.OnePartButton;
         Button mTwoPartButton = binding.TwoPartButton;
@@ -67,11 +68,8 @@ public class ProfessionDefinition extends Fragment {
                 mQuestionCount++;
                 String s = String.valueOf(mQuestionCount);
                 mCountQue.setText(s);
-//                String form = getString(R.string.quest_profdef).concat(" ") + mQuestionCount + " " + getString(R.string.quest_profdef_continue).concat(getString(R.string.quest_profdef_continue_two));
-//                mCountQue.setText(form);
-                //   mCountQue.setText(form);
+
             });
-            mTwoPartButton.findViewById(R.id.TwoPartButton);
             mTwoPartButton.setOnClickListener(view -> {
                 if (mQuestionCount == 0) {
                     ProfessionThreePart.add(ProfessionTwoPart.get(mQuestionCount));
@@ -86,10 +84,10 @@ public class ProfessionDefinition extends Fragment {
                 mQuestionCount++;
                 String s = String.valueOf(mQuestionCount);
                 mCountQue.setText(s);
-//                String form = getString(R.string.quest_profdef).concat(" ") + mQuestionCount + " " + getString(R.string.quest_profdef_continue).concat(getString(R.string.quest_profdef_continue_two));
-//                mCountQue.setText(form);
+//
             });
             determineInteres();
+            Example();
 
         } else {
             // TODO: Переходим на следующий экран с выбором
@@ -124,7 +122,7 @@ public class ProfessionDefinition extends Fragment {
         ProfessionOnePart.add(new ProfessionalDefinition(2, 23, "Тестировщик ПО"));
         ProfessionOnePart.add(new ProfessionalDefinition(4, 24, "Копирайтер"));
         ProfessionOnePart.add(new ProfessionalDefinition(2, 25, "Системный администратор"));
-        ProfessionOnePart.add(new ProfessionalDefinition(2, 26, "Лингвист"));
+        ProfessionOnePart.add(new ProfessionalDefinition(1, 26, "Плотник"));
         ProfessionOnePart.add(new ProfessionalDefinition(4, 27, "Корректор"));
         ProfessionOnePart.add(new ProfessionalDefinition(1, 28, "Наборщик текстов"));
         ProfessionOnePart.add(new ProfessionalDefinition(2, 29, "Программист"));
@@ -163,71 +161,112 @@ public class ProfessionDefinition extends Fragment {
     }
 
     private void determineInteres() {
-        int realist = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.REALIST_GROUP).count();
-        int intellectual = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.INTELLECTUAL_GROUP).count();
-        int social = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.SOCIAL_GROUP).count();
-        int office = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.OFFICE_GROUP).count();
-        int entrepreneurial = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.ENTREPRENEURIAL_GROUP).count();
-        int artistic = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.ARTISTIC_GROUP).count();
+        int realist = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.REALIST).count();
+        int intellectual = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.INTELLECTUAL).count();
+        int social = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.SOCIAL).count();
+        int office = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.OFFICE).count();
+        int entrepreneurial = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.ENTREPRENEURIAL).count();
+        int artistic = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.ARTISTIC).count();
+        HumanInterest mHigh = new HumanInterest(8, 10, "High");
+        HumanInterest mMidle = new HumanInterest(5, 7, "Middle");
 
-        if (7 <= realist && realist <= 9)
-            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.REALIST_GROUP).
+        if (8 <= realist && realist <= 10)
+            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.REALIST).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
-        else if (8 <= intellectual && intellectual <= 11)
-            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.INTELLECTUAL_GROUP).
+        else if (8 <= intellectual && intellectual <= 10)
+            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.INTELLECTUAL).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
         else if (8 <= social && social <= 10)
-            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.SOCIAL_GROUP).
+            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.SOCIAL).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
         else if (8 <= office && office <= 10)
-            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.OFFICE_GROUP).
+            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.OFFICE).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
         else if (8 <= entrepreneurial && entrepreneurial <= 10)
-            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.ENTREPRENEURIAL_GROUP).
+            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.ENTREPRENEURIAL).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
         else if (8 <= artistic && artistic <= 10)
-            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.ARTISTIC_GROUP).
+            mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.ARTISTIC).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
 
         if (5 <= realist && realist <= 7)
-            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.REALIST_GROUP).
+            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.REALIST).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
         else if (5 <= intellectual && intellectual <= 7)
-            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.INTELLECTUAL_GROUP).
+            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.INTELLECTUAL).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
         else if (5 <= social && social <= 7)
-            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.SOCIAL_GROUP).
+            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.SOCIAL).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
         else if (5 <= office && office <= 7)
-            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.OFFICE_GROUP).
+            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.OFFICE).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
         else if (5 <= entrepreneurial && entrepreneurial <= 7)
-            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.ENTREPRENEURIAL_GROUP).
+            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.ENTREPRENEURIAL).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
         else if (5 <= artistic && artistic <= 7)
-            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.ARTISTIC_GROUP).
+            mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.ARTISTIC).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
         if (0 <= realist && realist <= 5)
-            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.REALIST_GROUP).
+            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.REALIST).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
         else if (0 <= intellectual && intellectual <= 5)
-            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.INTELLECTUAL_GROUP).
+            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.INTELLECTUAL).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
         else if (0 <= social && social <= 5)
-            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.SOCIAL_GROUP).
+            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.SOCIAL).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
         else if (0 <= office && office <= 5)
-            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.OFFICE_GROUP).
+            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.OFFICE).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
         else if (0 <= entrepreneurial && entrepreneurial <= 5)
-            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.ENTREPRENEURIAL_GROUP).
+            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.ENTREPRENEURIAL).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
         else if (0 <= artistic && artistic <= 5)
-            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.ARTISTIC_GROUP).
+            mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.ARTISTIC).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
 
-
     }
+
+    private void Example() {
+        int realist = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.REALIST).count();
+        int intellectual = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.INTELLECTUAL).count();
+        int social = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.SOCIAL).count();
+        int office = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.OFFICE).count();
+        int entrepreneurial = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.ENTREPRENEURIAL).count();
+        int artistic = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.ARTISTIC).count();
+        HumanInterest mHigh = new HumanInterest(8, 10, "High");
+        HumanInterest mMiddle = new HumanInterest(5, 7, "Middle");
+        HumanInterest mLow = new HumanInterest(0, 5, "Low");
+        int[] arr = {realist, intellectual, social, office, entrepreneurial, artistic};
+        for (int i = 0; i <= arr.length; i++) {
+            if (inGroup(mHigh.getLowInterest(), mHigh.getHighInterest(), arr[i]))
+                collectInterestHigh(i);
+             else if (inGroup(mMiddle.getLowInterest(), mMiddle.getHighInterest(), arr[i]))
+                collectInterestMiddle(i);
+            else if (inGroup(mLow.getLowInterest(), mLow.getHighInterest(), arr[i]))
+                collectInterestLow(i);
+
+        }
+    }
+
+    List<String> collectInterestHigh(int group) {
+        return mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == group).
+                map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+    }
+    List<String> collectInterestMiddle(int group) {
+        return mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == group).
+                map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+    }
+    List<String> collectInterestLow(int group) {
+        return mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == group).
+                map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+    }
+
+    boolean inGroup(int low, int hi, int value) {
+        return (low <= value && value <= hi);
+    }
+
 
 }
 

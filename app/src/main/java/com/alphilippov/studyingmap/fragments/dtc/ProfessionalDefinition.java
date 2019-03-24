@@ -1,4 +1,4 @@
-package com.alphilippov.studyingmap.fragments;
+package com.alphilippov.studyingmap.fragments.dtc;
 
 import com.alphilippov.studyingmap.navigation.MainActivity;
 
