@@ -241,27 +241,19 @@ public class ProfessionDefinition extends Fragment {
         int[] arr = {realist, intellectual, social, office, entrepreneurial, artistic};
         for (int i = 0; i <= arr.length; i++) {
             if (inGroup(mHigh.getLowInterest(), mHigh.getHighInterest(), arr[i]))
-                collectInterestHigh(i);
+                collectInterest(i,mHighInterest);
              else if (inGroup(mMiddle.getLowInterest(), mMiddle.getHighInterest(), arr[i]))
-                collectInterestMiddle(i);
+                collectInterest(i,mMiddleInterest);
             else if (inGroup(mLow.getLowInterest(), mLow.getHighInterest(), arr[i]))
-                collectInterestLow(i);
-
+                collectInterest(i,mLowInterest);
         }
     }
+    public List<String> collectInterest(int group, List<String>name) {
+         name= ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == group).
+                map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
+         return name;
+    }
 
-    List<String> collectInterestHigh(int group) {
-        return mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == group).
-                map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
-    }
-    List<String> collectInterestMiddle(int group) {
-        return mMiddleInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == group).
-                map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
-    }
-    List<String> collectInterestLow(int group) {
-        return mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == group).
-                map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
-    }
 
     boolean inGroup(int low, int hi, int value) {
         return (low <= value && value <= hi);
