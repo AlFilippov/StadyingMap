@@ -1,5 +1,6 @@
 package com.alphilippov.studyingmap.fragments;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.alphilippov.studyingmap.databind.ProfessionBinding;
 import com.alphilippov.studyingmap.databinding.ProfessionDefinitionBinding;
 import com.alphilippov.studyingmap.fragments.dtc.HumanInterest;
 import com.alphilippov.studyingmap.fragments.dtc.ProfessionalDefinition;
+import com.alphilippov.studyingmap.network.NetworkService;
 import com.alphilippov.studyingmap.utils.AppConfig;
 
 import java.util.ArrayList;
@@ -64,6 +66,8 @@ public class ProfessionDefinition extends Fragment {
                     mOnePartButton.setText(ProfessionOnePart.get(mQuestionCount).getProfession());
                     mTwoPartButton.setText(ProfessionTwoPart.get(mQuestionCount).getProfession());
                     ProfessionThreePart.add(ProfessionOnePart.get(mQuestionCount));
+                    collectList(ProfessionOnePart,mQuestionCount);
+
                 }
                 mQuestionCount++;
                 String s = String.valueOf(mQuestionCount);
@@ -80,19 +84,19 @@ public class ProfessionDefinition extends Fragment {
                     mOnePartButton.setText(ProfessionOnePart.get(mQuestionCount).getProfession());
                     mTwoPartButton.setText(ProfessionTwoPart.get(mQuestionCount).getProfession());
                     ProfessionThreePart.add(ProfessionTwoPart.get(mQuestionCount));
+                    collectList(ProfessionTwoPart,mQuestionCount);
                 }
                 mQuestionCount++;
                 String s = String.valueOf(mQuestionCount);
                 mCountQue.setText(s);
-//
+
             });
-            determineInteres();
-            Example();
-
+            // Example();
         } else {
-            // TODO: Переходим на следующий экран с выбором
-
+            mSentDataFragment.onSentData("YES");
         }
+int count = ProfessionThreePart.size();
+        determineInteres();
         return binding.getRoot();
     }
 
@@ -167,8 +171,6 @@ public class ProfessionDefinition extends Fragment {
         int office = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.OFFICE).count();
         int entrepreneurial = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.ENTREPRENEURIAL).count();
         int artistic = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.ARTISTIC).count();
-        HumanInterest mHigh = new HumanInterest(8, 10, "High");
-        HumanInterest mMidle = new HumanInterest(5, 7, "Middle");
 
         if (8 <= realist && realist <= 10)
             mHighInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.REALIST).
@@ -225,41 +227,63 @@ public class ProfessionDefinition extends Fragment {
         else if (0 <= artistic && artistic <= 5)
             mLowInterest = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.ARTISTIC).
                     map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
-
+//        HumanInterest mHigh = new HumanInterest(8, 10, "High");
+//        HumanInterest mMiddle = new HumanInterest(5, 7, "Middle");
+//        HumanInterest mLow = new HumanInterest(0, 5, "Low");
+//        int[] arr = {realist, intellectual, social, office, entrepreneurial, artistic};
+//        for (int i = 0; i <= arr.length; i++) {
+//            if (inGroup(mHigh.getLowInterest(), mHigh.getHighInterest(), arr[i]))
+//                collectInterest(i,mHighInterest);
+//            else if (inGroup(mMiddle.getLowInterest(), mMiddle.getHighInterest(), arr[i]))
+//                collectInterest(i,mMiddleInterest);
+//            else if (inGroup(mLow.getLowInterest(), mLow.getHighInterest(), arr[i]))
+//                collectInterest(i,mLowInterest);
+//        }
     }
 
-    private void Example() {
-        int realist = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.REALIST).count();
-        int intellectual = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.INTELLECTUAL).count();
-        int social = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.SOCIAL).count();
-        int office = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.OFFICE).count();
-        int entrepreneurial = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.ENTREPRENEURIAL).count();
-        int artistic = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.ARTISTIC).count();
-        HumanInterest mHigh = new HumanInterest(8, 10, "High");
-        HumanInterest mMiddle = new HumanInterest(5, 7, "Middle");
-        HumanInterest mLow = new HumanInterest(0, 5, "Low");
-        int[] arr = {realist, intellectual, social, office, entrepreneurial, artistic};
-        for (int i = 0; i <= arr.length; i++) {
-            if (inGroup(mHigh.getLowInterest(), mHigh.getHighInterest(), arr[i]))
-                collectInterest(i,mHighInterest);
-             else if (inGroup(mMiddle.getLowInterest(), mMiddle.getHighInterest(), arr[i]))
-                collectInterest(i,mMiddleInterest);
-            else if (inGroup(mLow.getLowInterest(), mLow.getHighInterest(), arr[i]))
-                collectInterest(i,mLowInterest);
-        }
+    public List<ProfessionalDefinition> collectList(List<ProfessionalDefinition> name,int i){
+        ProfessionThreePart.add(i,name.get(i));
+        return ProfessionThreePart;
     }
+//    private void Example() {
+//        int realist = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.REALIST).count();
+//        int intellectual = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.INTELLECTUAL).count();
+//        int social = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.SOCIAL).count();
+//        int office = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.OFFICE).count();
+//        int entrepreneurial = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.ENTREPRENEURIAL).count();
+//        int artistic = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.ARTISTIC).count();
+//        HumanInterest mHigh = new HumanInterest(8, 10, "High");
+//        HumanInterest mMiddle = new HumanInterest(5, 7, "Middle");
+//        HumanInterest mLow = new HumanInterest(0, 5, "Low");
+//        int[] arr = {realist, intellectual, social, office, entrepreneurial, artistic};
+//        for (int i = 0; i <= arr.length; i++) {
+//            if (inGroup(mHigh.getLowInterest(), mHigh.getHighInterest(), arr[i]))
+//                collectInterest(i,mHighInterest);
+//             else if (inGroup(mMiddle.getLowInterest(), mMiddle.getHighInterest(), arr[i]))
+//                collectInterest(i,mMiddleInterest);
+//            else if (inGroup(mLow.getLowInterest(), mLow.getHighInterest(), arr[i]))
+//                collectInterest(i,mLowInterest);
+
+//        }
     public List<String> collectInterest(int group, List<String>name) {
-         name= ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == group).
+      return  name= ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == group).
                 map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
-         return name;
-    }
 
+    }
 
     boolean inGroup(int low, int hi, int value) {
         return (low <= value && value <= hi);
     }
+    public  interface sentDataFragment{
+        void onSentData(String s);
 
-
+    }
+    sentDataFragment mSentDataFragment;
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mSentDataFragment=(sentDataFragment)context;
+    }
 }
 
 

@@ -39,6 +39,11 @@ public class UserModelDto {
         private String currencySymbol;
         @JsonProperty("price_string")
         private String priceString;
+
+        public String getPriceString() {
+            return priceString;
+        }
+
         @JsonProperty("amount")
         private float amount;
         @JsonIgnore
@@ -85,6 +90,15 @@ public class UserModelDto {
         private String publishedTitle;
         @JsonProperty("predictive_score")
         private Object predictiveScore;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getPrice() {
+            return price;
+        }
+
         @JsonProperty("relevancy_score")
         private float relevancyScore;
         @JsonProperty("input_features")
@@ -110,6 +124,9 @@ public class UserModelDto {
 
     }
     public class VisibleInstructor {
+        public String getTitle() {
+            return title;
+        }
 
         @JsonProperty("title")
         private String title;

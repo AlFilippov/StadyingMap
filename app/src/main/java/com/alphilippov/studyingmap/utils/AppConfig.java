@@ -7,6 +7,7 @@ public interface AppConfig {
      String APP_PREFERENCES = "myData";
      String APP_PREFERENCES_LOGIN = " ";
      String APP_PREFERENCES_PASSWORD = " ";
+
  }
     interface Group {
    int REALIST = 1;
@@ -15,6 +16,10 @@ public interface AppConfig {
      int OFFICE = 4;
     int ENTREPRENEURIAL = 5;
     int ARTISTIC = 6;
+}
+interface Authorization{
+     String CLIENT_ID="lL0XU8iNzCRb3pVLcsFllZUQsmENxw0605cs7E7U";
+     String CLIENT_SECRET="5j7Z5ETzYUblaHnrPQo9E1A9doFN9ldvDtA83iU8RrTJMgnJTnZloVyzFyhOuLkZFy5C5qJnbCzYQGEsD6niDrA4uYs2i28TUKmviXjJzTGbudBwhQjJXEFckWFBXY9D";
 }
     int QUANTITY_QUESTIONS = 30;
 }

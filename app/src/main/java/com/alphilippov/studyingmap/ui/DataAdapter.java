@@ -11,47 +11,47 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.alphilippov.studyingmap.R;
-import com.alphilippov.studyingmap.network.dto.UserModelDto;
 
 import java.util.List;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
-    private LayoutInflater mLayoutInflater;
-    private List<UserModelDto> mUserModelDtoList;
-// TODO:Первый параметр в конструкторе LayoutInflater ?
-    DataAdapter(Context context, List<UserModelDto> userModelDtoList) {
-       this.mLayoutInflater=LayoutInflater.from(context);
-        mUserModelDtoList = userModelDtoList;
+    private Context mContext;
+    private List<courseModelDto> mCourseModelDtoList;
+
+    public DataAdapter(Context context, List<courseModelDto> courseModelDtoList) {
+        mContext = context;
+        mCourseModelDtoList = courseModelDtoList;
     }
 
-
+    @NonNull
     @Override
     public DataAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = mLayoutInflater.inflate(R.layout.content_info_course,viewGroup,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.content_info_course, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder( DataAdapter.ViewHolder viewHolder, int position) {
-UserModelDto userModelDto = mUserModelDtoList.get(position);
-//TODO:Прописать гетеры из DTO
-viewHolder.
+    public void onBindViewHolder(@NonNull DataAdapter.ViewHolder viewHolder, int position) {
+        viewHolder.mNameCourse.setText(mCourseModelDtoList.get(position).getNameCourse());
+        viewHolder.mAuthorCourse.setText(mCourseModelDtoList.get(position).getAuthorCourse());
+        viewHolder.mPriceCourse.setText(mCourseModelDtoList.get(position).getPriceCourse());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mCourseModelDtoList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
         ImageView mImageCourse;
-TextView mNameCourse;
-TextView mAuthorCourse;
-RatingBar mRatingCourse;
+        TextView mNameCourse;
+        TextView mAuthorCourse;
+        RatingBar mRatingCourse;
         TextView mAverageRating;
         TextView mQuantityFeedBack;
         TextView mPriceCourse;
         TextView mPriceWithoutDiscount;
+
         ViewHolder(View view) {
             super(view);
             mImageCourse = view.findViewById(R.id.mImageCourse);
@@ -65,15 +65,9 @@ RatingBar mRatingCourse;
         }
 
 
-        }
-
-
-
-
-
-
-
-
     }
 
+
 }
+
+

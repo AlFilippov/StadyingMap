@@ -17,9 +17,10 @@ import com.alphilippov.studyingmap.R;
 import com.alphilippov.studyingmap.fragments.AskMe;
 import com.alphilippov.studyingmap.fragments.ChoiceOfProfession;
 import com.alphilippov.studyingmap.fragments.ProfessionDefinition;
+import com.alphilippov.studyingmap.fragments.SearchResultOfCourses;
 
 public class NavigationDrawer extends MainActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AskMe.OnChangedFragment {
+        implements NavigationView.OnNavigationItemSelectedListener, AskMe.OnChangedFragment , ProfessionDefinition.sentDataFragment {
     private static final String YES_DECIDED = "ydecided";
     private static final String WANT_DEFENITION = "wdecided";
 
@@ -51,14 +52,15 @@ public class NavigationDrawer extends MainActivity
 
 
     }
-
+//Передача данных из Фрагментов
     @Override
     public void ChangedFragment(String s) {
         if (s.equals(YES_DECIDED)) {
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
-            ChoiceOfProfession ch = new ChoiceOfProfession();
-            ft.replace(R.id.container, ch);
+           // ChoiceOfProfession ch = new ChoiceOfProfession();
+            SearchResultOfCourses sr=new SearchResultOfCourses();
+            ft.replace(R.id.container, sr);
             ft.addToBackStack(null);
             ft.commit();
         } else if (s.equals(WANT_DEFENITION)) {
@@ -71,6 +73,19 @@ public class NavigationDrawer extends MainActivity
         }
     }
 
+
+
+    @Override
+    public void onSentData(String s) {
+        if(s.equals("YES")){
+FragmentManager fm = getSupportFragmentManager();
+FragmentTransaction ft = fm.beginTransaction();
+            SearchResultOfCourses resultOfCourses = new SearchResultOfCourses();
+            ft.replace(R.id.container,resultOfCourses);
+            ft.addToBackStack(null);
+            ft.commit();
+        }
+    }
 
     //Проверяется открыта ли шторка , при нажатии кнопки назад
 
@@ -104,8 +119,8 @@ public class NavigationDrawer extends MainActivity
 
         return super.onOptionsItemSelected(item);
     }
-
     //Обрабатывает навигацию по меню
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 

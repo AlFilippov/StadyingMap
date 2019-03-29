@@ -4,7 +4,7 @@ import com.alphilippov.studyingmap.navigation.MainActivity;
 
 import java.util.Objects;
 
-public class ProfessionalDefinition extends MainActivity {
+public class ProfessionalDefinition {
     private final int mIdDefiniton;
     private final int mIndexDefinition;
     private final String mProfession;

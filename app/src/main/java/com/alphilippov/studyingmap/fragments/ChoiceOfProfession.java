@@ -12,6 +12,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.alphilippov.studyingmap.R;
+import com.alphilippov.studyingmap.network.NetworkService;
 
 public class ChoiceOfProfession extends Fragment implements SeekBar.OnSeekBarChangeListener {
     private static final String HUMANITIES_AND_ART = "human_art";
