@@ -23,6 +23,7 @@ public class NavigationDrawer extends MainActivity
         implements NavigationView.OnNavigationItemSelectedListener, AskMe.OnChangedFragment , ProfessionDefinition.sentDataFragment {
     private static final String YES_DECIDED = "ydecided";
     private static final String WANT_DEFENITION = "wdecided";
+    private static final String YES = "YES";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +77,8 @@ public class NavigationDrawer extends MainActivity
 
 
     @Override
-    public void onSentData(String s) {
-        if(s.equals("YES")){
+    public void onSentData(String d) {
+        if(d.equals(YES)){
 FragmentManager fm = getSupportFragmentManager();
 FragmentTransaction ft = fm.beginTransaction();
             SearchResultOfCourses resultOfCourses = new SearchResultOfCourses();

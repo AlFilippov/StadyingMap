@@ -18,11 +18,9 @@ import com.alphilippov.studyingmap.databind.ProfessionBinding;
 import com.alphilippov.studyingmap.databinding.ProfessionDefinitionBinding;
 import com.alphilippov.studyingmap.fragments.dtc.HumanInterest;
 import com.alphilippov.studyingmap.fragments.dtc.ProfessionalDefinition;
-import com.alphilippov.studyingmap.network.NetworkService;
 import com.alphilippov.studyingmap.utils.AppConfig;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,9 +32,9 @@ public class ProfessionDefinition extends Fragment {
     public List<String> mHighInterest = new ArrayList<>();
     public List<String> mMiddleInterest = new ArrayList<>();
     public List<String> mLowInterest = new ArrayList<>();
-    private int mQuestionCount;
+    private static int mQuestionCount;
     private TextView mCountQue;
-    private static final String TAG = "MyApp";
+    private static final String TAG = ProfessionDefinition.class.getName();
 
 //    @Override
 //    public void onClick(View v) {
@@ -77,17 +75,17 @@ public class ProfessionDefinition extends Fragment {
         mOnePartButton.setText(ProfessionOnePart.get(0).getProfession());
         mTwoPartButton.setText(ProfessionTwoPart.get(0).getProfession());
 
-        if (mQuestionCount <= 30) {
+        if (mQuestionCount <= 5) {
             mOnePartButton.setOnClickListener(view -> {
                 if (mQuestionCount == 0) {
-                    collectList(0);
+                    collectList(ProfessionOnePart, 0);
                     mOnePartButton.setText(ProfessionOnePart.get(1).getProfession());
                     mTwoPartButton.setText(ProfessionTwoPart.get(1).getProfession());
                     mQuestionCount++;
                 } else {
                     mOnePartButton.setText(ProfessionOnePart.get(mQuestionCount).getProfession());
                     mTwoPartButton.setText(ProfessionTwoPart.get(mQuestionCount).getProfession());
-                    collectList(mQuestionCount);
+                    collectList(ProfessionOnePart, mQuestionCount);
 
                 }
                 mQuestionCount++;
@@ -95,17 +93,16 @@ public class ProfessionDefinition extends Fragment {
                 mCountQue.setText(s);
 
             });
-
             mTwoPartButton.setOnClickListener(view -> {
                 if (mQuestionCount == 0) {
-                    collectList(0);
+                    collectList(ProfessionTwoPart, 0);
                     mOnePartButton.setText(ProfessionOnePart.get(1).getProfession());
                     mTwoPartButton.setText(ProfessionTwoPart.get(1).getProfession());
                     mQuestionCount++;
                 } else {
                     mOnePartButton.setText(ProfessionOnePart.get(mQuestionCount).getProfession());
                     mTwoPartButton.setText(ProfessionTwoPart.get(mQuestionCount).getProfession());
-                    collectList(mQuestionCount);
+                    collectList(ProfessionTwoPart, mQuestionCount);
                 }
                 mQuestionCount++;
                 String s = String.valueOf(mQuestionCount);
@@ -116,7 +113,7 @@ public class ProfessionDefinition extends Fragment {
 
         } else {
             mSentDataFragment.onSentData("YES");
-            Example();
+            CollectInteresGroups();
         }
         return binding.getRoot();
     }
@@ -151,7 +148,7 @@ public class ProfessionDefinition extends Fragment {
         ProfessionOnePart.add(new ProfessionalDefinition(4, 27, "Корректор"));
         ProfessionOnePart.add(new ProfessionalDefinition(1, 28, "Наборщик текстов"));
         ProfessionOnePart.add(new ProfessionalDefinition(2, 29, "Программист"));
-        ProfessionOnePart.add(new ProfessionalDefinition(4, 30, "Бухгалтер"));
+     //   ProfessionOnePart.add(new ProfessionalDefinition(4, 30, "Бухгалтер"));
 
         ProfessionTwoPart.add(new ProfessionalDefinition(3, 0, "Физиотерапевт"));
         ProfessionTwoPart.add(new ProfessionalDefinition(5, 1, "Специалист по логистике"));
@@ -182,9 +179,12 @@ public class ProfessionDefinition extends Fragment {
         ProfessionTwoPart.add(new ProfessionalDefinition(6, 27, "Художественный редактор"));
         ProfessionTwoPart.add(new ProfessionalDefinition(3, 28, "Юрисконсультр"));
         ProfessionTwoPart.add(new ProfessionalDefinition(5, 29, "Брокер"));
-        ProfessionTwoPart.add(new ProfessionalDefinition(6, 30, "Литературный переводчик"));
+      //  ProfessionTwoPart.add(new ProfessionalDefinition(6, 30, "Литературный переводчик"));
     }
-
+private int count (int name){
+        name++;
+        return name;
+}
     private void determineInteres() {
         int realist = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.REALIST).count();
         int intellectual = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.INTELLECTUAL).count();
@@ -262,13 +262,13 @@ public class ProfessionDefinition extends Fragment {
 //        }
     }
 
-    public void collectList(int i) {
+    public void collectList(List<ProfessionalDefinition> name, int i) {
         ProfessionThreePart.add(ProfessionOnePart.get(i));
         Log.i(TAG, String.valueOf(ProfessionOnePart));
 
     }
 
-    private void Example() {
+    private void CollectInteresGroups() {
         int realist = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.REALIST).count();
         int intellectual = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.INTELLECTUAL).count();
         int social = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.SOCIAL).count();
@@ -291,8 +291,8 @@ public class ProfessionDefinition extends Fragment {
 
     }
 
-    public List<String> collectInterest(int group, List<String> name) {
-        return name = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == group).
+    public void collectInterest(int group, List<String> name) {
+        name = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == group).
                 map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
 
     }
@@ -302,7 +302,7 @@ public class ProfessionDefinition extends Fragment {
     }
 
     public interface sentDataFragment {
-        void onSentData(String s);
+        void onSentData(String d);
 
     }
 
@@ -313,6 +313,7 @@ public class ProfessionDefinition extends Fragment {
         super.onAttach(context);
         mSentDataFragment = (sentDataFragment) context;
     }
+
 }
 
 
