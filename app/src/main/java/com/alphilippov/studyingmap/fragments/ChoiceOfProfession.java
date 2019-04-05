@@ -1,5 +1,6 @@
 package com.alphilippov.studyingmap.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,107 +11,55 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alphilippov.studyingmap.R;
 import com.alphilippov.studyingmap.network.NetworkService;
+import com.alphilippov.studyingmap.network.RestService;
+import com.alphilippov.studyingmap.network.dto.UserModelDto;
 
-public class ChoiceOfProfession extends Fragment implements SeekBar.OnSeekBarChangeListener {
+import org.w3c.dom.Text;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ChoiceOfProfession extends Fragment {
     private static final String HUMANITIES_AND_ART = "human_art";
     private static final String COMPUTER_SCIENCE = "computer_science";
     private static final String DEFAULT_KEY = "default";
-
-    private Button mFragmentButton;
-    private int mTextView;
-    private String mKey;
+    private TextView mTitle;
+    private TextView mPrice;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View qView = inflater.inflate(R.layout.choice_profession, container, false);
-        SeekBar seekBarHumanandArt = qView.findViewById(R.id.seekbar_ha);
-        SeekBar seekBarComputerScience = qView.findViewById(R.id.seekbar_cs);
-        TextView ExampleTextView = qView.findViewById(R.id.textview);
-        seekBarComputerScience.setOnSeekBarChangeListener(this);
-        seekBarHumanandArt.setOnSeekBarChangeListener(this);
-        ExampleTextView.setText(String.valueOf(getTextView()));
 
-        Button mFragmentButton = qView.findViewById(R.id.fragment1_finish);
-        mFragmentButton.setOnClickListener(new View.OnClickListener() {
+        mTitle = qView.findViewById(R.id.titleCourse);
+        mPrice = qView.findViewById(R.id.coursePrice);
+
+        NetworkService.getInstance().getJSONApi().getResult(1,12,"java","price-free",true,"en","beginner","highest-rated",4).enqueue(new Callback<UserModelDto.Result>() {
             @Override
-            public void onClick(View v) {
-                //Задача метода передать данные в активити
-               // replacefragment();
+            public void onResponse(Call<UserModelDto.Result> call, Response<UserModelDto.Result> response) {
+                UserModelDto.Result result = response.body();
+mTitle.setText(result.getTitle());
+mPrice.setText(result.getPrice());
+            }
+
+            @Override
+            public void onFailure(Call<UserModelDto.Result> call, Throwable t) {
+
             }
         });
         return qView;
     }
 
-    public String getKey() {
-        return mKey;
-    }
-
-    public void setKey(String key) {
-        mKey = key;
-    }
-
-    public void setTextView(int textView) {
-        this.mTextView = textView;
-    }
-
-    public int getTextView() {
-        return mTextView;
-    }
-
     @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        switch (seekBar.getId()) {
-            case R.id.seekbar_ha:
-                setTextView(progress);
-                setKey(HUMANITIES_AND_ART);
-                break;
-            case R.id.seekbar_cs:
-                setKey(COMPUTER_SCIENCE);
-                setTextView(progress);
-                break;
-            default:
-                setKey(DEFAULT_KEY);
-                break;
+    public void onCreate(@Nullable Bundle savedInstanceState) {
 
 
-        }
+
+        super.onCreate(savedInstanceState);
     }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-
-    }
-
-//    //Вложенный интерфейс для взаимодействия с активити
-//    interface OnFragmentInteractionListener {
-//        void OnFragmentInteraction(int value_seekbar, String key);
-//
-//    }
-//
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-////Обращаемся к активити
-//      mListener = (OnFragmentInteractionListener) context;
-//
-//
-//    }
-//
-//    public void replacefragment() {
-//        int b = getTextView();
-//        String c = getKey();
-//        //Передаем некоторое значение , по которому будем судить
-//        mListener.OnFragmentInteraction(b, c);
-//    }
-//
-
 }
 

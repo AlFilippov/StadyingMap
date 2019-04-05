@@ -81,9 +81,8 @@ public class NavigationDrawer extends MainActivity
         if(d.equals(YES)){
 FragmentManager fm = getSupportFragmentManager();
 FragmentTransaction ft = fm.beginTransaction();
-            SearchResultOfCourses resultOfCourses = new SearchResultOfCourses();
-            ft.replace(R.id.container,resultOfCourses);
-            ft.addToBackStack(null);
+           SearchResultOfCourses sR = new SearchResultOfCourses();
+            ft.replace(R.id.container,sR);
             ft.commit();
         }
     }

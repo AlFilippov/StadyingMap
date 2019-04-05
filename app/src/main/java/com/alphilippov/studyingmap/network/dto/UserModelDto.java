@@ -91,12 +91,52 @@ public class UserModelDto {
         @JsonProperty("predictive_score")
         private Object predictiveScore;
 
+        public String get_class() {
+            return _class;
+        }
+
+        public int getId() {
+            return id;
+        }
+
         public String getTitle() {
             return title;
         }
 
+        public String getUrl() {
+            return url;
+        }
+
+        public boolean isPaid() {
+            return isPaid;
+        }
+
         public String getPrice() {
             return price;
+        }
+
+        public PriceDetail getPriceDetail() {
+            return priceDetail;
+        }
+
+        public List<VisibleInstructor> getVisibleInstructors() {
+            return visibleInstructors;
+        }
+
+        public String getImage125H() {
+            return image125H;
+        }
+
+        public String getImage240x135() {
+            return image240x135;
+        }
+
+        public boolean isPracticeTestCourse() {
+            return isPracticeTestCourse;
+        }
+
+        public String getImage480x270() {
+            return image480x270;
         }
 
         @JsonProperty("relevancy_score")

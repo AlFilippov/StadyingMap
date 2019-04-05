@@ -13,43 +13,53 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alphilippov.studyingmap.R;
+import com.alphilippov.studyingmap.network.NetworkService;
+import com.alphilippov.studyingmap.network.dto.UserModelDto;
 import com.alphilippov.studyingmap.ui.DataAdapter;
 import com.alphilippov.studyingmap.ui.courseModelDto;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class SearchResultOfCourses extends Fragment {
     List<courseModelDto> mCourseModelDto = new ArrayList<>();
-private RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View qView = inflater.inflate(R.layout.search_result_of_courses, container, false);
-       mRecyclerView=qView.findViewById(R.id.list);
-        DataAdapter mDataAdapter = new DataAdapter(getContext(),mCourseModelDto);
+        mRecyclerView = qView.findViewById(R.id.list);
+        DataAdapter mDataAdapter = new DataAdapter(getContext(), mCourseModelDto);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mDataAdapter);
-return qView;
+        return qView;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCourseModelDto = new ArrayList<>();
-        mCourseModelDto.add(new courseModelDto("Java","Jonh","4.5","4","50","30$","15$"));
-        mCourseModelDto.add(new courseModelDto("Java","Jonh","4.5","4","50","30$","15$"));
-        mCourseModelDto.add(new courseModelDto("Java","Jonh","4.5","4","50","30$","15$"));
-        mCourseModelDto.add(new courseModelDto("Java","Jonh","4.5","4","50","30$","15$"));
-        mCourseModelDto.add(new courseModelDto("Java","Jonh","4.5","4","50","30$","15$"));
-        mCourseModelDto.add(new courseModelDto("Java","Jonh","4.5","4","50","30$","15$"));
-        mCourseModelDto.add(new courseModelDto("Java","Jonh","4.5","4","50","30$","15$"));
-        mCourseModelDto.add(new courseModelDto("Java","Jonh","4.5","4","50","30$","15$"));
-        mCourseModelDto.add(new courseModelDto("Java","Jonh","4.5","4","50","30$","15$"));
-        mCourseModelDto.add(new courseModelDto("Java","Jonh","4.5","4","50","30$","15$"));
-        mCourseModelDto.add(new courseModelDto("Java","Jonh","4.5","4","50","30$","15$"));
-        mCourseModelDto.add(new courseModelDto("Java","Jonh","4.5","4","50","30$","15$"));
 
+
+        NetworkService.getInstance().getJSONApi().getResult(1, 1, "java", "price-free", true, "en", "beginner", "highest-rated", 4).enqueue(new Callback<UserModelDto.Result>() {
+            @Override
+            public void onResponse(Call<UserModelDto.Result> call, Response<UserModelDto.Result> response) {
+                UserModelDto.Result result = response.body();
+                mCourseModelDto.add(new courseModelDto(result.getTitle(), result.getTitle(), result.getTitle(), result.getTitle(), result.getTitle(), result.getTitle(), result.getTitle()));
+             
+            }
+
+            @Override
+            public void onFailure(Call<UserModelDto.Result> call, Throwable t) {
+
+            }
+
+
+        });
     }
 
     @Override

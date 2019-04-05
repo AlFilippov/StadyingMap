@@ -2,7 +2,9 @@ package com.alphilippov.studyingmap.network;
 
 import com.alphilippov.studyingmap.BuildConfig;
 import com.alphilippov.studyingmap.utils.AppConfig;
+
 import java.util.Base64;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -16,23 +18,20 @@ public class NetworkService {
     private Retrofit mRetrofit;
 
     private NetworkService() {
-        OkHttpClient.Builder client = new OkHttpClient.Builder();
-        client.addInterceptor(chain -> {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {
             Request original = chain.request();
             Request.Builder requestBuilder = original.newBuilder()
-                    .header("Authorization", "Basic" + getBasicAuthenticator());
+                    .header("Authorization", "Basic " + getBasicAuthenticator());
             Request request = requestBuilder.build();
             return chain.proceed(request);
-        });
+        }).addInterceptor(httpLoggingInterceptor).build();
 
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        if (BuildConfig.DEBUG) {
-            httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        }
-        client.addInterceptor(httpLoggingInterceptor)
-                .build();
+
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(AppConfig.BASE_URL)
+                .client(client)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
     }
