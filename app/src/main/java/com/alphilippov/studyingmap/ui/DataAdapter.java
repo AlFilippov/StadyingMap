@@ -11,16 +11,21 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.alphilippov.studyingmap.R;
+import com.alphilippov.studyingmap.network.dto.UserModelDto;
 
 import java.util.List;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     private Context mContext;
-    private List<courseModelDto> mCourseModelDtoList;
+    private List<UserModelDto> mCourseModelDtoList;
+    private List<UserModelDto.Result> mInfoCourseResult;
+    private List<UserModelDto.PriceDetail>mInfoCourseDetail;
+    private List<UserModelDto.VisibleInstructor> mVisibleInstructors;
 
-    public DataAdapter(Context context, List<courseModelDto> courseModelDtoList) {
+    public DataAdapter(Context context, List<UserModelDto> courseModelDtoList) {
         mContext = context;
         mCourseModelDtoList = courseModelDtoList;
+
     }
 
     @NonNull
@@ -32,9 +37,9 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull DataAdapter.ViewHolder viewHolder, int position) {
-        viewHolder.mNameCourse.setText(mCourseModelDtoList.get(position).getNameCourse());
-        viewHolder.mAuthorCourse.setText(mCourseModelDtoList.get(position).getAuthorCourse());
-        viewHolder.mPriceCourse.setText(mCourseModelDtoList.get(position).getPriceCourse());
+        viewHolder.mNameCourse.setText(mInfoCourseResult.get(position).getTitle());
+        viewHolder.mAuthorCourse.setText(mVisibleInstructors.get(position).getTitle());
+        viewHolder.mPriceCourse.setText(mInfoCourseResult.get(position).getPrice());
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.alphilippov.studyingmap.network;
 
 import com.alphilippov.studyingmap.network.dto.UserModelDto;
+import com.alphilippov.studyingmap.network.dto.UserModelDtoList;
 
 import java.util.List;
 
@@ -20,4 +21,12 @@ public interface RestService {
                                               @Query("instructional_level")String level,
                                               @Query("ordering") String order,
                                               @Query("ratings")int nubmer);
+    @GET("courses")
+    Call<UserModelDtoList>getResultList(@Query("page") int page, @Query("page_size") int page_size, @Query("search") String search,
+                                    @Query("price") String price,
+                                    @Query("is_affiliate_agreed") boolean aff,
+                                    @Query("language") String lang,
+                                    @Query("instructional_level")String level,
+                                    @Query("ordering") String order,
+                                    @Query("ratings")int nubmer);
 }

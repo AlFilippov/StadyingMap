@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.alphilippov.studyingmap.R;
 import com.alphilippov.studyingmap.network.NetworkService;
 import com.alphilippov.studyingmap.network.dto.UserModelDto;
+import com.alphilippov.studyingmap.network.dto.UserModelDtoList;
 import com.alphilippov.studyingmap.ui.DataAdapter;
 import com.alphilippov.studyingmap.ui.courseModelDto;
 
@@ -26,7 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchResultOfCourses extends Fragment {
-    List<courseModelDto> mCourseModelDto = new ArrayList<>();
+    List<UserModelDto> mCourseModelDto = new ArrayList<>();
     private RecyclerView mRecyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,23 +43,22 @@ public class SearchResultOfCourses extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCourseModelDto = new ArrayList<>();
+        callRetrofit();
 
 
-        NetworkService.getInstance().getJSONApi().getResult(1, 1, "java", "price-free", true, "en", "beginner", "highest-rated", 4).enqueue(new Callback<UserModelDto.Result>() {
+    }
+
+    private void callRetrofit() {
+        NetworkService.getInstance().getJSONApi().getResultList(1, 12, "java", "price-free", true, "en", "beginner", "highest-rated", 4).enqueue(new Callback<UserModelDtoList>() {
             @Override
-            public void onResponse(Call<UserModelDto.Result> call, Response<UserModelDto.Result> response) {
-                UserModelDto.Result result = response.body();
-                mCourseModelDto.add(new courseModelDto(result.getTitle(), result.getTitle(), result.getTitle(), result.getTitle(), result.getTitle(), result.getTitle(), result.getTitle()));
-             
+            public void onResponse(Call<UserModelDtoList> call, Response<UserModelDtoList> response) {
+                mCourseModelDto = response.body().getUserModelDtoList();
             }
 
             @Override
-            public void onFailure(Call<UserModelDto.Result> call, Throwable t) {
+            public void onFailure(Call<UserModelDtoList> call, Throwable t) {
 
             }
-
-
         });
     }
 
