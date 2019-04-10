@@ -67,8 +67,8 @@ public class NavigationDrawer extends MainActivity
         } else if (s.equals(WANT_DEFENITION)) {
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
-            ProfessionDefinition pd = new ProfessionDefinition();
-            ft.replace(R.id.container, pd);
+           ProfessionDefinition professionDefinition = new ProfessionDefinition();
+            ft.replace(R.id.container,professionDefinition);
             ft.addToBackStack(null);
             ft.commit();
         }

@@ -11,16 +11,17 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.alphilippov.studyingmap.R;
+import com.alphilippov.studyingmap.network.dto.UserModelDto;
 
 import java.util.List;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     private Context mContext;
-    private List<courseModelDto> mCourseModelDtoList;
+    private List<UserModelDto.Result> mResultList;
 
-    public DataAdapter(Context context, List<courseModelDto> courseModelDtoList) {
+    public DataAdapter(Context context, List<UserModelDto.Result> resultList) {
         mContext = context;
-        mCourseModelDtoList = courseModelDtoList;
+        mResultList = resultList;
     }
 
     @NonNull
@@ -32,14 +33,14 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull DataAdapter.ViewHolder viewHolder, int position) {
-        viewHolder.mNameCourse.setText(mCourseModelDtoList.get(position).getNameCourse());
-        viewHolder.mAuthorCourse.setText(mCourseModelDtoList.get(position).getAuthorCourse());
-        viewHolder.mPriceCourse.setText(mCourseModelDtoList.get(position).getPriceCourse());
+viewHolder.mNameCourse.setText(mResultList.get(position).getTitle());
+viewHolder.mPriceCourse.setText(mResultList.get(position).getPrice());
+viewHolder.mRatingCourse.setRating(4);
     }
 
     @Override
     public int getItemCount() {
-        return mCourseModelDtoList.size();
+        return mResultList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

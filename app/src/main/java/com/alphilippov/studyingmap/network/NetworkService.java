@@ -2,8 +2,9 @@ package com.alphilippov.studyingmap.network;
 
 import com.alphilippov.studyingmap.BuildConfig;
 import com.alphilippov.studyingmap.utils.AppConfig;
+import com.google.common.io.BaseEncoding;
 
-import java.util.Base64;
+import android.util.Base64;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -11,13 +12,13 @@ import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
-
 public class NetworkService {
 
     private static NetworkService mInstance;
     private Retrofit mRetrofit;
 
     private NetworkService() {
+
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {
@@ -38,7 +39,8 @@ public class NetworkService {
 
     private static String getBasicAuthenticator() {
         String authStr = AppConfig.Authorization.CLIENT_ID + ":" + AppConfig.Authorization.CLIENT_SECRET;
-        return Base64.getEncoder().encodeToString(authStr.getBytes());
+        return BaseEncoding.base64().encode(authStr.getBytes());
+
     }
 
     public synchronized static NetworkService getInstance() {

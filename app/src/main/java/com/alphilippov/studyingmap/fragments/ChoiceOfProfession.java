@@ -38,19 +38,7 @@ public class ChoiceOfProfession extends Fragment {
         mTitle = qView.findViewById(R.id.titleCourse);
         mPrice = qView.findViewById(R.id.coursePrice);
 
-        NetworkService.getInstance().getJSONApi().getResult(1,12,"java","price-free",true,"en","beginner","highest-rated",4).enqueue(new Callback<UserModelDto.Result>() {
-            @Override
-            public void onResponse(Call<UserModelDto.Result> call, Response<UserModelDto.Result> response) {
-                UserModelDto.Result result = response.body();
-mTitle.setText(result.getTitle());
-mPrice.setText(result.getPrice());
-            }
 
-            @Override
-            public void onFailure(Call<UserModelDto.Result> call, Throwable t) {
-
-            }
-        });
         return qView;
     }
 

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +17,15 @@ public class UserModelDto {
     private String next;
     @JsonProperty("previous")
     private Object previous;
+    public String getNext() {
+        return next;
+    }
+
     @JsonProperty("results")
-    private List<Result> results = null;
+    private  ArrayList<Result> results=null ;
+    public ArrayList<Result> getResults() {
+        return results;
+    }
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -31,7 +39,7 @@ public class UserModelDto {
         this.additionalProperties.put(name, value);
     }
 
-    public class PriceDetail {
+    public static class PriceDetail {
 
         @JsonProperty("currency")
         private String currency;
@@ -60,7 +68,7 @@ public class UserModelDto {
         }
 
     }
-    public class Result {
+    public static class Result {
 
         @JsonProperty("_class")
         private String _class;
@@ -163,7 +171,7 @@ public class UserModelDto {
         }
 
     }
-    public class VisibleInstructor {
+    public static class VisibleInstructor {
         public String getTitle() {
             return title;
         }
