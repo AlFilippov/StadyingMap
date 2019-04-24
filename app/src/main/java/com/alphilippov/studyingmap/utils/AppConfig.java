@@ -22,5 +22,14 @@ interface Authorization{
      String CLIENT_ID="lL0XU8iNzCRb3pVLcsFllZUQsmENxw0605cs7E7U";
      String CLIENT_SECRET="5j7Z5ETzYUblaHnrPQo9E1A9doFN9ldvDtA83iU8RrTJMgnJTnZloVyzFyhOuLkZFy5C5qJnbCzYQGEsD6niDrA4uYs2i28TUKmviXjJzTGbudBwhQjJXEFckWFBXY9D";
 }
+interface PropertiesRequest{
+     int PAGE_SIZE = 40 ;
+     String PRICE = "price-paid";
+     Boolean AFFILIATE = true ;
+     String LEVEL_COURSES = "beginner";
+     String ORDERING = "highest-rated";
+     int RATINGS =4 ;
+
+}
 
 }

@@ -1,4 +1,4 @@
-package com.alphilippov.studyingmap.fragments.dtc;
+package com.alphilippov.studyingmap.helperclasses;
 
 public class HumanInterest {
     protected int mLowInterest;

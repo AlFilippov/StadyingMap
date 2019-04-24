@@ -1,6 +1,4 @@
-package com.alphilippov.studyingmap.fragments.dtc;
-
-import com.alphilippov.studyingmap.navigation.MainActivity;
+package com.alphilippov.studyingmap.helperclasses;
 
 import java.util.Objects;
 

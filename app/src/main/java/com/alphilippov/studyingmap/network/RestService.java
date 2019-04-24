@@ -17,7 +17,7 @@ public interface RestService {
                                  @Query("language") String lang,
                                  @Query("instructional_level") String level,
                                  @Query("ordering") String order,
-                                 @Query("ratings") int nubmer);
+                                 @Query("ratings") int ratings);
 
 
 }

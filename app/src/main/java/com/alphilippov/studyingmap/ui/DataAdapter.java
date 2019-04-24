@@ -34,8 +34,9 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull DataAdapter.ViewHolder viewHolder, int position) {
 viewHolder.mNameCourse.setText(mResultList.get(position).getTitle());
-viewHolder.mPriceCourse.setText(mResultList.get(position).getPrice());
+viewHolder.mPriceCourse.setText(mResultList.get(position).getPriceDetail().getPriceString());
 viewHolder.mRatingCourse.setRating(4);
+viewHolder.mAuthorCourse.setText(mResultList.get(position).getVisibleInstructors().get(0).getTitle());
     }
 
     @Override

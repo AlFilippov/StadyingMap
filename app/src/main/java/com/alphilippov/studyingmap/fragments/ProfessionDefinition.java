@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,8 @@ import android.widget.TextView;
 import com.alphilippov.studyingmap.R;
 import com.alphilippov.studyingmap.databind.ProfessionBinding;
 import com.alphilippov.studyingmap.databinding.ProfessionDefinitionBinding;
-import com.alphilippov.studyingmap.fragments.dtc.HumanInterest;
-import com.alphilippov.studyingmap.fragments.dtc.ProfessionalDefinition;
+import com.alphilippov.studyingmap.helperclasses.HumanInterest;
+import com.alphilippov.studyingmap.helperclasses.ProfessionalDefinition;
 import com.alphilippov.studyingmap.utils.AppConfig;
 
 import java.util.ArrayList;
