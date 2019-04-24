@@ -108,7 +108,6 @@ public class SearchResultOfCourses extends Fragment {
 
             }
         });
-
     }
 
     @Override
