@@ -76,6 +76,7 @@ public class SearchResultOfCourses extends Fragment {
         }
     };
 
+    //Данные отправляются в адаптер из результатов запроса
     private void generateContent(ArrayList<UserModelDto.Result> results) {
         DataAdapter mDataAdapter = new DataAdapter(getContext(), results);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
