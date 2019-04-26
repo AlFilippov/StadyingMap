@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.alphilippov.studyingmap.R;
@@ -21,7 +20,7 @@ import com.alphilippov.studyingmap.ui.DataAdapter;
 import com.alphilippov.studyingmap.utils.AppConfig;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,19 +34,27 @@ public class SearchResultOfCourses extends Fragment {
     private int page = 1;
     private int indexInterest = 0;
     protected ArrayList<UserModelDto.Result> moreUserModel = new ArrayList<>();
-
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View qView = inflater.inflate(R.layout.search_result_of_courses, container, false);
-        mRecyclerView = qView.findViewById(R.id.list);
-        return qView;
-    }
+    public final static String SEND_DATA_FRAGMENT = "data_fragment";
+    public HashMap<String, ArrayList<String>> mHashMap = new HashMap<>();
+    public HashMap<String, ArrayList<String>> mHashMap1 = new HashMap<>();
+    public ArrayList<String> mCollection;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //TODO:Могу словить classCastEx , нужно затестить
+        Bundle args = getArguments();
+        sentSortResultCollection(args);
     }
 
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View qView = inflater.inflate(R.layout.search_result_of_courses, container, false);
+        mRecyclerView = qView.findViewById(R.id.list);
+        Bundle bundle = getArguments();
+        return qView;
+    }
+
+    //Контроль позиции представления , для дальнешей реализации пагинации
     RecyclerView.OnScrollListener recyclerViewOnScrollListener = new RecyclerView.OnScrollListener() {
         @Override
         public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -74,7 +81,57 @@ public class SearchResultOfCourses extends Fragment {
                 }
             }
         }
+
     };
+
+    //Составление запросов
+    private void loadMoreInformation(int page, int indexInterest) {
+
+        NetworkService.getInstance().getJSONApi().getResult(page,
+                AppConfig.PropertiesRequest.PAGE_SIZE,
+                //TODO:Передать данные из фрагмента ProfessionDefinition
+                mCollection.get(indexInterest),
+                AppConfig.PropertiesRequest.PRICE,
+                AppConfig.PropertiesRequest.AFFILIATE,
+                "ru",
+                AppConfig.PropertiesRequest.LEVEL_COURSES,
+                AppConfig.PropertiesRequest.ORDERING,
+                AppConfig.PropertiesRequest.RATINGS).enqueue(new Callback<UserModelDto>() {
+            @Override
+            public void onResponse(Call<UserModelDto> call, Response<UserModelDto> response) {
+                moreUserModel.addAll(response.body().getResults());
+                generateContent(response.body().getResults());
+            }
+
+            @Override
+            public void onFailure(Call<UserModelDto> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void sentSortResultCollection(Bundle args) {
+        if (args != null) {
+            mHashMap = (HashMap<String, ArrayList<String>>) args.getSerializable("MapProfessionDef");
+            if (mHashMap.size() != 0) {
+                sortResultCollection(mHashMap);
+            }
+        } else {
+            Toast.makeText(getActivity(),"Неверные коллекции" ,Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+//TODO:Исправить добавление коллекции из HashMap
+    private void sortResultCollection(HashMap map) {
+        if (map.get("HighInterest") != null) {
+            mCollection .addAll(ArrayList<String> map.get("HighInterest"));
+        } else if (map.get("MiddleInterest") != null) {
+            mCollection = (ArrayList<String>) map.get("MiddleInterest");
+        } else if (map.get("LowInterest") != null) {
+            mCollection = (ArrayList<String>) map.get("LowInterest");
+        }
+    }
 
     //Данные отправляются в адаптер из результатов запроса
     private void generateContent(ArrayList<UserModelDto.Result> results) {
@@ -83,32 +140,6 @@ public class SearchResultOfCourses extends Fragment {
         mRecyclerView.setAdapter(mDataAdapter);
         mRecyclerView.addOnScrollListener(recyclerViewOnScrollListener);
 
-
-    }
-
-    private void loadMoreInformation(int page, int indexInterest) {
-
-        NetworkService.getInstance().getJSONApi().getResult(page,
-                AppConfig.PropertiesRequest.PAGE_SIZE,
-                //TODO:Передать данные из фрагмента ProfessionDefinition
-                mProfessionDefinition.MiddleInterest.get(indexInterest),
-                AppConfig.PropertiesRequest.PRICE,
-                AppConfig.PropertiesRequest.AFFILIATE,
-                "en",
-                AppConfig.PropertiesRequest.LEVEL_COURSES,
-                AppConfig.PropertiesRequest.ORDERING,
-                AppConfig.PropertiesRequest.RATINGS).enqueue(new Callback<UserModelDto>() {
-            @Override
-            public void onResponse(Call<UserModelDto> call, Response<UserModelDto> response) {
-                moreUserModel.addAll(response.body().getResults());
-                generateContent(moreUserModel);
-            }
-
-            @Override
-            public void onFailure(Call<UserModelDto> call, Throwable t) {
-
-            }
-        });
     }
 
     @Override

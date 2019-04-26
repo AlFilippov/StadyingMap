@@ -20,6 +20,7 @@ import com.alphilippov.studyingmap.helperclasses.ProfessionalDefinition;
 import com.alphilippov.studyingmap.utils.AppConfig;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,16 +29,16 @@ public class ProfessionDefinition extends Fragment {
     public List<ProfessionalDefinition> ProfessionOnePart = new ArrayList<>();
     public List<ProfessionalDefinition> ProfessionTwoPart = new ArrayList<>();
     public List<ProfessionalDefinition> ProfessionThreePart = new ArrayList<>();
-    public List<String> HighInterest = new ArrayList<>();
-    public List<String> MiddleInterest = new ArrayList<>();
-    public List<String> LowInterest = new ArrayList<>();
+    public ArrayList<String> HighInterest = new ArrayList<>();
+    public ArrayList<String> MiddleInterest = new ArrayList<>();
+    public ArrayList<String> LowInterest = new ArrayList<>();
     public List<String> HighInterestBefore = new ArrayList<>();
     public List<String> MiddleInterestBefore = new ArrayList<>();
     public List<String> LowInterestBefore = new ArrayList<>();
+    public HashMap<String, ArrayList<String>> mHashMap = new HashMap<>();
     public int QuestionCount = 1;
     private TextView mCountQue;
     private static final String TAG = ProfessionDefinition.class.getName();
-
 
 
     @Nullable
@@ -94,19 +95,25 @@ public class ProfessionDefinition extends Fragment {
 
     public void collectList(List<ProfessionalDefinition> onePart, int i) {
         ProfessionThreePart.add(onePart.get(i));
-       // Log.i(TAG, String.valueOf(ProfessionThreePart.size()));
+        // Log.i(TAG, String.valueOf(ProfessionThreePart.size()));
 //        for (ProfessionalDefinition professionalDefinition : ProfessionThreePart) {
 //            System.out.println(professionalDefinition.getProfession());
 //        }
         if (getProfessionThreePart().size() >= ProfessionOnePart.size()) {
-            replaceFragment();
             collectInteresGroups();
+            mHashMap.put("HighInterest", HighInterest);
+            mHashMap.put("MiddleInterest", MiddleInterest);
+            mHashMap.put("LowInterest", LowInterest);
+            replaceFragment();
+
         }
 
     }
 
+    //Передача данных в фрагмент SearchResults , через Activity
     private void replaceFragment() {
-        mSentDataFragment.onSentData("YES");
+        mSentDataFragment.sentDataCollection(mHashMap);
+        mSentDataFragment.sentFlag("YES");
     }
 
 
@@ -193,6 +200,7 @@ public class ProfessionDefinition extends Fragment {
         mCountQue.setText(s);
     }
 
+    //Стримуем по таблице интересов , отправляем дальше по алгоритму
     private void collectInteresGroups() {
         int realist = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.REALIST).count();
         int intellectual = (int) ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == AppConfig.Group.INTELLECTUAL).count();
@@ -205,7 +213,7 @@ public class ProfessionDefinition extends Fragment {
         HumanInterest mLow = new HumanInterest(0, 4, "Low");
         int[] arr = {realist, intellectual, social, office, entrepreneurial, artistic};
         int[] arr1 = {1, 2, 3, 4, 5, 6};
-        for (int i = 0; i <= arr.length-1; i++) {
+        for (int i = 0; i <= arr.length - 1; i++) {
             if (inGroup(mHigh.getLowInterest(), mHigh.getHighInterest(), arr[i]))
                 collectInterestHigh(arr1[i], HighInterestBefore);
             else if (inGroup(mMiddle.getLowInterest(), mMiddle.getHighInterest(), arr[i]))
@@ -217,6 +225,7 @@ public class ProfessionDefinition extends Fragment {
 
     }
 
+    //Наполняем коллекции данными из collectInteresGroups
     public void collectInterestHigh(int group, List<String> name) {
         HighInterestBefore = ProfessionThreePart.stream().filter((p) -> p.getIdDefiniton() == group).
                 map(ProfessionalDefinition::getProfession).collect(Collectors.toList());
@@ -246,9 +255,12 @@ public class ProfessionDefinition extends Fragment {
         return (low <= value && value <= hi);
     }
 
+    //TODO:переделать в HashMap
     public interface sentDataFragment {
 
-        void onSentData(String d);
+        void sentFlag(String d);
+
+        Bundle sentDataCollection(HashMap<String, ArrayList<String>> map);
 
     }
 

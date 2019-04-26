@@ -15,16 +15,18 @@ import android.view.MenuItem;
 
 import com.alphilippov.studyingmap.R;
 import com.alphilippov.studyingmap.fragments.AskMe;
-import com.alphilippov.studyingmap.fragments.ChoiceOfProfession;
 import com.alphilippov.studyingmap.fragments.ProfessionDefinition;
 import com.alphilippov.studyingmap.fragments.SearchResultOfCourses;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class NavigationDrawer extends MainActivity
         implements NavigationView.OnNavigationItemSelectedListener, AskMe.OnChangedFragment , ProfessionDefinition.sentDataFragment {
     private static final String YES_DECIDED = "ydecided";
     private static final String WANT_DEFENITION = "wdecided";
     private static final String YES = "YES";
-
+    public HashMap<String, ArrayList<String>> mHashMap = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,14 +79,24 @@ public class NavigationDrawer extends MainActivity
 
 
     @Override
-    public void onSentData(String d) {
+    public void sentFlag(String d) {
         if(d.equals(YES)){
 FragmentManager fm = getSupportFragmentManager();
 FragmentTransaction ft = fm.beginTransaction();
            SearchResultOfCourses sR = new SearchResultOfCourses();
+            sR.setArguments(sentDataCollection(mHashMap));
             ft.replace(R.id.container,sR);
             ft.commit();
         }
+    }
+
+    @Override
+    public Bundle sentDataCollection(HashMap<String, ArrayList<String>> map) {
+        mHashMap.putAll(map);
+        Bundle args =new Bundle();
+        args.putSerializable("MapProfessionDef",map);
+
+return args;
     }
 
     //Проверяется открыта ли шторка , при нажатии кнопки назад
