@@ -37,7 +37,7 @@ public class SearchResultOfCourses extends Fragment {
     public final static String SEND_DATA_FRAGMENT = "data_fragment";
     public HashMap<String, ArrayList<String>> mHashMap = new HashMap<>();
     public HashMap<String, ArrayList<String>> mHashMap1 = new HashMap<>();
-    public ArrayList<String> mCollection;
+    public ArrayList<String> mCollection = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,12 +45,12 @@ public class SearchResultOfCourses extends Fragment {
         //TODO:Могу словить classCastEx , нужно затестить
         Bundle args = getArguments();
         sentSortResultCollection(args);
+        loadMoreInformation(page,indexInterest);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View qView = inflater.inflate(R.layout.search_result_of_courses, container, false);
         mRecyclerView = qView.findViewById(R.id.list);
-        Bundle bundle = getArguments();
         return qView;
     }
 
@@ -123,13 +123,13 @@ public class SearchResultOfCourses extends Fragment {
 
     }
 //TODO:Исправить добавление коллекции из HashMap
-    private void sortResultCollection(HashMap map) {
+    private void sortResultCollection(HashMap<String,ArrayList<String>> map) {
         if (map.get("HighInterest") != null) {
-            mCollection .addAll(ArrayList<String> map.get("HighInterest"));
+            mCollection.addAll(map.get("HighInterest"));
         } else if (map.get("MiddleInterest") != null) {
-            mCollection = (ArrayList<String>) map.get("MiddleInterest");
+            mCollection.addAll(map.get("MiddleInterest"));
         } else if (map.get("LowInterest") != null) {
-            mCollection = (ArrayList<String>) map.get("LowInterest");
+            mCollection.addAll(map.get("LowInterest"));
         }
     }
 
