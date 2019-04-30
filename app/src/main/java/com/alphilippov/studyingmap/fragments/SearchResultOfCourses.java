@@ -56,7 +56,12 @@ public class SearchResultOfCourses extends Fragment {
                 isScrolling = true;
             }
         }
-
+        //realist interior-design,home-improvement,architectural-design,yoga,massage,acupressure,aromatherapy,life-coaching,reflexology
+//intelectual     web-development , mobile-apps,programming-languages,databases,software-testing,game-development,software-engineering
+//social psychology-fundamentals , social-psychology,accounting,counseling,digital-marketing,advertising,public-relations,marketing-fundamentals,branding,social-media-marketing,
+//office accounting,digital-marketing,sales,social-media-marketing,advertising,microsoft,economics,management
+        //entreprenirual business-law,home-business,leadership,human-resources,finance,entrepreneurship,communications,management,sales,branding,industry,self-esteem,
+//articstic design-thinking,web-design,mobile-app-design,user-experience-design,photography-fundamentals,portraits,arts-and-crafts,influence,self-esteem
         @Override
         public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
