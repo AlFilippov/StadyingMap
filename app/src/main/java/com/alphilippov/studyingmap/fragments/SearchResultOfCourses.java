@@ -21,6 +21,7 @@ import com.alphilippov.studyingmap.ui.DataAdapter;
 import com.alphilippov.studyingmap.utils.AppConfig;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,13 +29,25 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchResultOfCourses extends Fragment {
+    private ArrayList<UserModelDto.Result> moreUserModel = new ArrayList<>();
+    public List<String> intellectualList = new ArrayList<>();
+    public List<String> realistList = new ArrayList<>();
+    public List<String> socialList = new ArrayList<>();
+    public List<String> officeList = new ArrayList<>();
+    public List<String> entrepreneuriaList = new ArrayList<>();
+    public List<String> artistictList = new ArrayList<>();
+    private HashMap<String, List<String>> mListHashMap;
+    private static final String SEARCH_RESULT = "result";
+    private static final String HIGH_INT_KEY = "high";
+    private static final String MIDDLE_INT_KEY = "middle";
+    private static final String LOW_INT_KEY = "low";
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getActivity());
-    private boolean isScrolling;
+    private DataAdapter mDataAdapter;
     private ProfessionDefinition mProfessionDefinition = new ProfessionDefinition();
+    private boolean isScrolling;
     private int page = 1;
     private int indexInterest = 0;
-    protected ArrayList<UserModelDto.Result> moreUserModel = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View qView = inflater.inflate(R.layout.search_result_of_courses, container, false);
@@ -45,6 +58,30 @@ public class SearchResultOfCourses extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initDataList();
+        Bundle bundle = new Bundle(getArguments());
+
+        mListHashMap = (HashMap<String, List<String>>) bundle.getSerializable(SEARCH_RESULT);
+        NetworkService.getInstance().getJSONApi().getResult(page,
+                AppConfig.PropertiesRequest.PAGE_SIZE,
+                intellectualList.get(indexInterest),
+                AppConfig.PropertiesRequest.PRICE,
+                AppConfig.PropertiesRequest.AFFILIATE,
+                "en",
+                AppConfig.PropertiesRequest.LEVEL_COURSES,
+                AppConfig.PropertiesRequest.ORDERING,
+                AppConfig.PropertiesRequest.RATINGS).enqueue(new Callback<UserModelDto>() {
+            @Override
+            public void onResponse(Call<UserModelDto> call, Response<UserModelDto> response) {
+                moreUserModel.addAll(response.body().getResults());
+                generateContent(moreUserModel);
+            }
+
+            @Override
+            public void onFailure(Call<UserModelDto> call, Throwable t) {
+
+            }
+        });
 
     }
 
@@ -56,12 +93,7 @@ public class SearchResultOfCourses extends Fragment {
                 isScrolling = true;
             }
         }
-        //realist interior-design,home-improvement,architectural-design,yoga,massage,acupressure,aromatherapy,life-coaching,reflexology
-//intelectual     web-development , mobile-apps,programming-languages,databases,software-testing,game-development,software-engineering
-//social psychology-fundamentals , social-psychology,accounting,counseling,digital-marketing,advertising,public-relations,marketing-fundamentals,branding,social-media-marketing,
-//office accounting,digital-marketing,sales,social-media-marketing,advertising,microsoft,economics,management
-        //entreprenirual business-law,home-business,leadership,human-resources,finance,entrepreneurship,communications,management,sales,branding,industry,self-esteem,
-//articstic design-thinking,web-design,mobile-app-design,user-experience-design,photography-fundamentals,portraits,arts-and-crafts,influence,self-esteem
+
         @Override
         public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
@@ -75,16 +107,77 @@ public class SearchResultOfCourses extends Fragment {
                     loadMoreInformation(page, indexInterest);
                     page++;
                     indexInterest++;
+                    mDataAdapter.notifyDataSetChanged();
 
                 }
             }
         }
+        //realist interior-design,home-improvement,architectural-design,yoga,massage,acupressure,aromatherapy,life-coaching,reflexology
+//intelectual     web-development , mobile-apps,programming-languages,databases,software-testing,game-development,software-engineering
+//social psychology-fundamentals , social-psychology,accounting,counseling,digital-marketing,advertising,public-relations,marketing-fundamentals,branding,social-media-marketing,
+//office accounting,digital-marketing,sales,social-media-marketing,advertising,microsoft,economics,management
+        //entreprenirual business-law,home-business,leadership,human-resources,finance,entrepreneurship,communications,management,sales,branding,industry,self-esteem,
+//articstic design-thinking,web-design,mobile-app-design,user-experience-design,photography-fundamentals,portraits,arts-and-crafts,influence,self-esteem
     };
 
+    private void initDataList() {
+        intellectualList.add("web-development");
+        intellectualList.add("mobile-apps");
+        intellectualList.add("programming-languages");
+        intellectualList.add("databases");
+        intellectualList.add("software-testing");
+        intellectualList.add("game-development");
+        realistList.add("interior-design");
+        realistList.add("home-improvement");
+        realistList.add("architectural-design");
+        realistList.add("yoga");
+        realistList.add("massage");
+        realistList.add("acupressure");
+        realistList.add("aromatherapy");
+        realistList.add("life-coaching");
+        realistList.add("reflexology");
+        socialList.add("psychology-fundamentals");
+        socialList.add("social-psychology");
+        socialList.add("accounting");
+        socialList.add("counseling");
+        socialList.add("digital-marketing");
+        socialList.add("advertising");
+        socialList.add("public-relations");
+        socialList.add("marketing-fundamentals");
+        socialList.add("branding");
+        socialList.add("social-media-marketing");
+        officeList.add("accounting");
+        officeList.add("digital-marketing");
+        officeList.add("economics");
+        officeList.add("management");
+        entrepreneuriaList.add("business-law");
+        entrepreneuriaList.add("home-business");
+        entrepreneuriaList.add("leadership");
+        entrepreneuriaList.add("human-resources");
+        entrepreneuriaList.add("finance");
+        entrepreneuriaList.add("entrepreneurship");
+        entrepreneuriaList.add("communications");
+        entrepreneuriaList.add("management");
+        artistictList.add("design-thinking");
+        artistictList.add("web-design");
+        artistictList.add("mobile-app-design");
+        artistictList.add("user-experience-design");
+        artistictList.add("photography-fundamentals");
+        artistictList.add("portraits");
+    }
+//TODO:Сделать декомпозицию 
+    private void allocationHashMapInteres(HashMap hashMap) {
+        if (mListHashMap.get(HIGH_INT_KEY).size() > 0) {
+            mListHashMap.get(HIGH_INT_KEY).get(0);
+        } else if (mListHashMap.get(MIDDLE_INT_KEY).size() > 0) {
+        } else if (mListHashMap.get(LOW_INT_KEY).size() > 0) {
+        }
+    }
+
     private void generateContent(ArrayList<UserModelDto.Result> results) {
-        DataAdapter mDataAdapter = new DataAdapter(getContext(), results);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mDataAdapter = new DataAdapter(getContext(), results);
         mRecyclerView.setAdapter(mDataAdapter);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.addOnScrollListener(recyclerViewOnScrollListener);
 
 
@@ -94,8 +187,7 @@ public class SearchResultOfCourses extends Fragment {
 
         NetworkService.getInstance().getJSONApi().getResult(page,
                 AppConfig.PropertiesRequest.PAGE_SIZE,
-                //TODO:Передать данные из фрагмента ProfessionDefinition
-                mProfessionDefinition.MiddleInterest.get(indexInterest),
+                intellectualList.get(indexInterest),
                 AppConfig.PropertiesRequest.PRICE,
                 AppConfig.PropertiesRequest.AFFILIATE,
                 "en",

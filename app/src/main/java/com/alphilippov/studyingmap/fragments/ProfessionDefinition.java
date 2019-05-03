@@ -20,24 +20,31 @@ import com.alphilippov.studyingmap.helperclasses.ProfessionalDefinition;
 import com.alphilippov.studyingmap.utils.AppConfig;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
 public class ProfessionDefinition extends Fragment {
-    public List<ProfessionalDefinition> ProfessionOnePart = new ArrayList<>();
-    public List<ProfessionalDefinition> ProfessionTwoPart = new ArrayList<>();
+    private static final String TAG = ProfessionDefinition.class.getName();
+    private static final String HIGH_INT_KEY = "high";
+    private static final String MIDDLE_INT_KEY = "middle";
+    private static final String LOW_INT_KEY = "low";
+    private List<ProfessionalDefinition> ProfessionOnePart = new ArrayList<>();
+    private List<ProfessionalDefinition> ProfessionTwoPart = new ArrayList<>();
+    private List<String> HighInterestBefore = new ArrayList<>();
+    private List<String> MiddleInterestBefore = new ArrayList<>();
+    private List<String> LowInterestBefore = new ArrayList<>();
+    private TextView mCountQue;
+    protected HashMap<String, List<String>> mHashInteres = new HashMap<>();
     public List<ProfessionalDefinition> ProfessionThreePart = new ArrayList<>();
     public List<String> HighInterest = new ArrayList<>();
     public List<String> MiddleInterest = new ArrayList<>();
     public List<String> LowInterest = new ArrayList<>();
-    public List<String> HighInterestBefore = new ArrayList<>();
-    public List<String> MiddleInterestBefore = new ArrayList<>();
-    public List<String> LowInterestBefore = new ArrayList<>();
+    public List<String> HighIntGroup = new ArrayList<>();
+    public List<String> MiddleIntGroup = new ArrayList<>();
+    public List<String> LowIntGroup = new ArrayList<>();
     public int QuestionCount = 1;
-    private TextView mCountQue;
-    private static final String TAG = ProfessionDefinition.class.getName();
-
 
 
     @Nullable
@@ -94,19 +101,20 @@ public class ProfessionDefinition extends Fragment {
 
     public void collectList(List<ProfessionalDefinition> onePart, int i) {
         ProfessionThreePart.add(onePart.get(i));
-       // Log.i(TAG, String.valueOf(ProfessionThreePart.size()));
+        // Log.i(TAG, String.valueOf(ProfessionThreePart.size()));
 //        for (ProfessionalDefinition professionalDefinition : ProfessionThreePart) {
 //            System.out.println(professionalDefinition.getProfession());
 //        }
         if (getProfessionThreePart().size() >= ProfessionOnePart.size()) {
-            replaceFragment();
             collectInteresGroups();
+            replaceFragment();
         }
 
     }
 
     private void replaceFragment() {
-        mSentDataFragment.onSentData("YES");
+        mSentDataFragment.onSentData("YES",mHashInteres);
+
     }
 
 
@@ -203,17 +211,24 @@ public class ProfessionDefinition extends Fragment {
         HumanInterest mMiddle = new HumanInterest(5, 7, "Middle");
         HumanInterest mLow = new HumanInterest(0, 4, "Low");
         int[] arr = {realist, intellectual, social, office, entrepreneurial, artistic};
-        int[] arr1 = {1, 2, 3, 4, 5, 6};
-        for (int i = 0; i <= arr.length-1; i++) {
-            if (inGroup(mHigh.getLowInterest(), mHigh.getHighInterest(), arr[i]))
-                collectInterestHigh(arr1[i], HighInterestBefore);
-            else if (inGroup(mMiddle.getLowInterest(), mMiddle.getHighInterest(), arr[i]))
-                collectInterestMiddle(arr1[i], MiddleInterestBefore);
-            else if (inGroup(mLow.getLowInterest(), mLow.getHighInterest(), arr[i]))
-                collectInterestLow(arr1[i], LowInterestBefore);
 
+        String[] mNameGroupInteres = {"realist", "intellectual", "social", "office", "entrepreneurial", "artistic"};
+        int[] arrays = {1, 2, 3, 4, 5, 6};
+
+        for (int i = 0; i <= arr.length - 1; i++) {
+            if (inGroup(mHigh.getLowInterest(), mHigh.getHighInterest(), arr[i])) {
+                collectInterestHigh(arrays[i], HighInterestBefore);
+                HighIntGroup.add(mNameGroupInteres[i]);
+            } else if (inGroup(mMiddle.getLowInterest(), mMiddle.getHighInterest(), arr[i])) {
+                collectInterestMiddle(arrays[i], MiddleInterestBefore);
+                MiddleIntGroup.add(mNameGroupInteres[i]);
+            } else if (inGroup(mLow.getLowInterest(), mLow.getHighInterest(), arr[i]))
+                collectInterestLow(arrays[i], LowInterestBefore);
+            LowIntGroup.add(mNameGroupInteres[i]);
         }
-
+        createHashMapIntGroup(HIGH_INT_KEY, HighIntGroup);
+        createHashMapIntGroup(MIDDLE_INT_KEY, MiddleIntGroup);
+        createHashMapIntGroup(LOW_INT_KEY, LowIntGroup);
     }
 
     public void collectInterestHigh(int group, List<String> name) {
@@ -222,6 +237,10 @@ public class ProfessionDefinition extends Fragment {
         if (HighInterestBefore.size() != 0)
             HighInterest.addAll(HighInterestBefore);
 
+    }
+
+    private  void createHashMapIntGroup(String key, List<String> name) {
+        mHashInteres.put(key, name);
     }
 
     public void collectInterestMiddle(int group, List<String> name) {
@@ -247,7 +266,8 @@ public class ProfessionDefinition extends Fragment {
 
     public interface sentDataFragment {
 
-        void onSentData(String d);
+        void onSentData(String d,HashMap hashMap);
+
 
     }
 

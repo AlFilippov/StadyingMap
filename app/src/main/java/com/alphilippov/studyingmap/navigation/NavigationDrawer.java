@@ -19,11 +19,14 @@ import com.alphilippov.studyingmap.fragments.ChoiceOfProfession;
 import com.alphilippov.studyingmap.fragments.ProfessionDefinition;
 import com.alphilippov.studyingmap.fragments.SearchResultOfCourses;
 
+import java.util.HashMap;
+
 public class NavigationDrawer extends MainActivity
         implements NavigationView.OnNavigationItemSelectedListener, AskMe.OnChangedFragment , ProfessionDefinition.sentDataFragment {
     private static final String YES_DECIDED = "ydecided";
     private static final String WANT_DEFENITION = "wdecided";
     private static final String YES = "YES";
+    private static final String SEARCH_RESULT = "result";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,15 +80,20 @@ public class NavigationDrawer extends MainActivity
 
 
     @Override
-    public void onSentData(String d) {
+    public void onSentData(String d,HashMap hashMap) {
         if(d.equals(YES)){
+            Bundle bundle = new Bundle();
 FragmentManager fm = getSupportFragmentManager();
 FragmentTransaction ft = fm.beginTransaction();
            SearchResultOfCourses sR = new SearchResultOfCourses();
+           bundle.putSerializable(SEARCH_RESULT,hashMap);
+           sR.setArguments(bundle);
             ft.replace(R.id.container,sR);
             ft.commit();
         }
     }
+
+
 
     //Проверяется открыта ли шторка , при нажатии кнопки назад
 

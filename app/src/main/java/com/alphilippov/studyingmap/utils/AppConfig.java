@@ -23,7 +23,7 @@ interface Authorization{
      String CLIENT_SECRET="5j7Z5ETzYUblaHnrPQo9E1A9doFN9ldvDtA83iU8RrTJMgnJTnZloVyzFyhOuLkZFy5C5qJnbCzYQGEsD6niDrA4uYs2i28TUKmviXjJzTGbudBwhQjJXEFckWFBXY9D";
 }
 interface PropertiesRequest{
-     int PAGE_SIZE = 40 ;
+     int PAGE_SIZE = 12;
      String PRICE = "price-paid";
      Boolean AFFILIATE = true ;
      String LEVEL_COURSES = "beginner";
