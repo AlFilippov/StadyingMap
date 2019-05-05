@@ -222,9 +222,10 @@ public class ProfessionDefinition extends Fragment {
             } else if (inGroup(mMiddle.getLowInterest(), mMiddle.getHighInterest(), arr[i])) {
                 collectInterestMiddle(arrays[i], MiddleInterestBefore);
                 MiddleIntGroup.add(mNameGroupInteres[i]);
-            } else if (inGroup(mLow.getLowInterest(), mLow.getHighInterest(), arr[i]))
+            } else if (inGroup(mLow.getLowInterest(), mLow.getHighInterest(), arr[i])) {
                 collectInterestLow(arrays[i], LowInterestBefore);
-            LowIntGroup.add(mNameGroupInteres[i]);
+                LowIntGroup.add(mNameGroupInteres[i]);
+            }
         }
         createHashMapIntGroup(HIGH_INT_KEY, HighIntGroup);
         createHashMapIntGroup(MIDDLE_INT_KEY, MiddleIntGroup);

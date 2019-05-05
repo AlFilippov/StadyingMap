@@ -11,19 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
 import com.alphilippov.studyingmap.R;
 import com.alphilippov.studyingmap.network.NetworkService;
 import com.alphilippov.studyingmap.network.dto.UserModelDto;
 import com.alphilippov.studyingmap.ui.DataAdapter;
 import com.alphilippov.studyingmap.utils.AppConfig;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,15 +31,15 @@ public class SearchResultOfCourses extends Fragment {
     public List<String> officeList = new ArrayList<>();
     public List<String> entrepreneuriaList = new ArrayList<>();
     public List<String> artistictList = new ArrayList<>();
+    public List<List<String>> intGroup = new ArrayList<>();
     private HashMap<String, List<String>> mListHashMap;
     private static final String SEARCH_RESULT = "result";
     private static final String HIGH_INT_KEY = "high";
     private static final String MIDDLE_INT_KEY = "middle";
     private static final String LOW_INT_KEY = "low";
+    public List<String> finish = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getActivity());
-    private DataAdapter mDataAdapter;
-    private ProfessionDefinition mProfessionDefinition = new ProfessionDefinition();
     private boolean isScrolling;
     private int page = 1;
     private int indexInterest = 0;
@@ -52,6 +47,7 @@ public class SearchResultOfCourses extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View qView = inflater.inflate(R.layout.search_result_of_courses, container, false);
         mRecyclerView = qView.findViewById(R.id.list);
+
         return qView;
     }
 
@@ -60,11 +56,13 @@ public class SearchResultOfCourses extends Fragment {
         super.onCreate(savedInstanceState);
         initDataList();
         Bundle bundle = new Bundle(getArguments());
-
         mListHashMap = (HashMap<String, List<String>>) bundle.getSerializable(SEARCH_RESULT);
+        compareGroup(mListHashMap);
+
+        //TODO : Проверить соотвествие страниц и индекса интересов
         NetworkService.getInstance().getJSONApi().getResult(page,
                 AppConfig.PropertiesRequest.PAGE_SIZE,
-                intellectualList.get(indexInterest),
+                finish.get(indexInterest),
                 AppConfig.PropertiesRequest.PRICE,
                 AppConfig.PropertiesRequest.AFFILIATE,
                 "en",
@@ -82,7 +80,6 @@ public class SearchResultOfCourses extends Fragment {
 
             }
         });
-
     }
 
     RecyclerView.OnScrollListener recyclerViewOnScrollListener = new RecyclerView.OnScrollListener() {
@@ -107,7 +104,7 @@ public class SearchResultOfCourses extends Fragment {
                     loadMoreInformation(page, indexInterest);
                     page++;
                     indexInterest++;
-                    mDataAdapter.notifyDataSetChanged();
+
 
                 }
             }
@@ -119,6 +116,22 @@ public class SearchResultOfCourses extends Fragment {
         //entreprenirual business-law,home-business,leadership,human-resources,finance,entrepreneurship,communications,management,sales,branding,industry,self-esteem,
 //articstic design-thinking,web-design,mobile-app-design,user-experience-design,photography-fundamentals,portraits,arts-and-crafts,influence,self-esteem
     };
+
+
+    private void compareGroup(HashMap hashMap) {
+        String[] mNameGroupInteres = {"realist", "intellectual", "social", "office", "entrepreneurial", "artistic"};
+        String[] keyArray = {HIGH_INT_KEY, MIDDLE_INT_KEY, LOW_INT_KEY};
+
+        for (int j = 0; j <= keyArray.length - 1; j++) {
+            for (int i = 0; i <= mNameGroupInteres.length - 1; i++) {
+                if (getListIntHshMap(hashMap, keyArray[j]).contains(mNameGroupInteres[i])
+                        && getListIntHshMap(hashMap, keyArray[j]).size() > 0)
+                    getPositionList(i, intGroup);
+
+            }
+
+        }
+    }
 
     private void initDataList() {
         intellectualList.add("web-development");
@@ -164,30 +177,39 @@ public class SearchResultOfCourses extends Fragment {
         artistictList.add("user-experience-design");
         artistictList.add("photography-fundamentals");
         artistictList.add("portraits");
+        intGroup.add(intellectualList);
+        intGroup.add(realistList);
+        intGroup.add(socialList);
+        intGroup.add(officeList);
+        intGroup.add(entrepreneuriaList);
+        intGroup.add(artistictList);
+
     }
-//TODO:Сделать декомпозицию 
-    private void allocationHashMapInteres(HashMap hashMap) {
-        if (mListHashMap.get(HIGH_INT_KEY).size() > 0) {
-            mListHashMap.get(HIGH_INT_KEY).get(0);
-        } else if (mListHashMap.get(MIDDLE_INT_KEY).size() > 0) {
-        } else if (mListHashMap.get(LOW_INT_KEY).size() > 0) {
-        }
+
+    private List<String> getListIntHshMap(HashMap hashMap, String key) {
+        return (List<String>) hashMap.get(key);
+
     }
+
+    private void getPositionList(int i, List<List<String>> mList) {
+        finish.addAll(mList.get(i));
+
+    }
+
 
     private void generateContent(ArrayList<UserModelDto.Result> results) {
-        mDataAdapter = new DataAdapter(getContext(), results);
-        mRecyclerView.setAdapter(mDataAdapter);
+      DataAdapter mData = new DataAdapter(getContext(),results);
+        mRecyclerView.setAdapter(mData);
+        mData.notifyDataSetChanged();
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.addOnScrollListener(recyclerViewOnScrollListener);
-
-
     }
 
     private void loadMoreInformation(int page, int indexInterest) {
 
         NetworkService.getInstance().getJSONApi().getResult(page,
                 AppConfig.PropertiesRequest.PAGE_SIZE,
-                intellectualList.get(indexInterest),
+                finish.get(indexInterest),
                 AppConfig.PropertiesRequest.PRICE,
                 AppConfig.PropertiesRequest.AFFILIATE,
                 "en",
@@ -197,7 +219,7 @@ public class SearchResultOfCourses extends Fragment {
             @Override
             public void onResponse(Call<UserModelDto> call, Response<UserModelDto> response) {
                 moreUserModel.addAll(response.body().getResults());
-                generateContent(moreUserModel);
+               generateContent(moreUserModel);
             }
 
             @Override
@@ -205,6 +227,7 @@ public class SearchResultOfCourses extends Fragment {
 
             }
         });
+
     }
 
     @Override
