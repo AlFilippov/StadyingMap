@@ -21,14 +21,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static String sLoginUser;
     public static String sPasswordUser;
-
+//TODO:Накинуть на кнопку слушателя и отправить в БД
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         EditText Login = findViewById(R.id.nameBox);
         EditText Password = findViewById(R.id.passBox);
         Button mRegistrationUser = findViewById(R.id.saveButton);
-        mSettings = getSharedPreferences(AppConfig.SharedPrefernce.APP_PREFERENCES, Context.MODE_PRIVATE);
+       mSettings = getSharedPreferences(AppConfig.SharedPrefernce.APP_PREFERENCES, Context.MODE_PRIVATE);
         sLoginUser = Login.getText().toString();
         sPasswordUser = Password.getText().toString();
         if (mSettings.contains(APP_PREFERENCES_LOGIN) && mSettings.contains(APP_PREFERENCES_PASSWORD)) {
@@ -59,10 +59,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        SharedPreferences.Editor editor = mSettings.edit();
-        editor.putString(APP_PREFERENCES_LOGIN, sLoginUser);
-        editor.putString(APP_PREFERENCES_PASSWORD, sPasswordUser);
-        editor.apply();
+//        SharedPreferences.Editor editor = mSettings.edit();
+//        editor.putString(APP_PREFERENCES_LOGIN, sLoginUser);
+//        editor.putString(APP_PREFERENCES_PASSWORD, sPasswordUser);
+//        editor.apply();
     }
 
 

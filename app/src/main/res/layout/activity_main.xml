@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/Registration_activity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
     <TextView
         android:id="@+id/Registrr"
         android:layout_width="wrap_content"
@@ -17,6 +18,7 @@
         android:id="@+id/Registr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/cardview_light_background"
         android:text="@string/nameRegistr"
         android:textSize="30sp"
         android:layout_centerHorizontal="true"
@@ -31,6 +33,7 @@
         android:layout_below="@id/Registr"
         android:layout_marginTop="0dp"
         android:hint="@string/nameBox"
+        android:textColorHint="@color/cardview_light_background"
         android:inputType="textPersonName" />
 
     <EditText
@@ -40,7 +43,8 @@
         android:layout_below="@id/nameBox"
         android:layout_marginTop="0dp"
         android:hint="@string/namePass"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColorHint="@color/cardview_light_background"/>
 
 
     <Button
@@ -51,7 +55,15 @@
         android:layout_marginTop="0dp"
         android:text="@string/getReg"
         android:layout_centerHorizontal="true"/>
+<Button
+    android:id="@+id/input_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/saveButton"
+    android:layout_centerHorizontal="true"
+    android:text="@string/input_button"
 
+/>
 
 
 
