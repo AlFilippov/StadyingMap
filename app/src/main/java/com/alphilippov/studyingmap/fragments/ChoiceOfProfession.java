@@ -17,6 +17,7 @@ import com.alphilippov.studyingmap.R;
 import com.alphilippov.studyingmap.network.NetworkService;
 import com.alphilippov.studyingmap.network.RestService;
 import com.alphilippov.studyingmap.network.dto.UserModelDto;
+import com.alphilippov.studyingmap.network.dto.UserModelDtoRest;
 
 import org.w3c.dom.Text;
 
@@ -44,7 +45,6 @@ public class ChoiceOfProfession extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
 
 
         super.onCreate(savedInstanceState);

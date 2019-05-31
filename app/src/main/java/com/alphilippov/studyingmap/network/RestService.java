@@ -1,9 +1,11 @@
 package com.alphilippov.studyingmap.network;
 
 import com.alphilippov.studyingmap.network.dto.UserModelDto;
+import com.alphilippov.studyingmap.network.dto.UserModelDtoRest;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RestService {
@@ -19,5 +21,6 @@ public interface RestService {
                                  @Query("ordering") String order,
                                  @Query("ratings") int ratings);
 
-
+@GET("message/1")
+    Call<UserModelDtoRest> getMessage();
 }

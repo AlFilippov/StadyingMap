@@ -10,13 +10,12 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_marginTop="20dp"
             android:id="@+id/mImageCourse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/dialog_frame"
+            android:layout_width="70dp"
+            android:layout_height="61dp"
             android:layout_marginLeft="3sp"
-            />
+            android:layout_marginTop="10dp"
+            android:src="@android:drawable/dialog_frame" />
 
         <TextView
             android:id="@+id/mNameCourse"

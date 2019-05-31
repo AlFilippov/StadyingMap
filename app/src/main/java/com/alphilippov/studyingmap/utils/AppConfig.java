@@ -3,6 +3,7 @@ package com.alphilippov.studyingmap.utils;
 public interface AppConfig {
 
     String BASE_URL = "https://www.udemy.com/api-2.0/";
+    String BASE_URL_TWO="http://10.0.2.2:8000/";
  interface SharedPrefernce {
      String APP_PREFERENCES = "myData";
      String APP_PREFERENCES_LOGIN = " ";
@@ -23,7 +24,7 @@ interface Authorization{
      String CLIENT_SECRET="5j7Z5ETzYUblaHnrPQo9E1A9doFN9ldvDtA83iU8RrTJMgnJTnZloVyzFyhOuLkZFy5C5qJnbCzYQGEsD6niDrA4uYs2i28TUKmviXjJzTGbudBwhQjJXEFckWFBXY9D";
 }
 interface PropertiesRequest{
-     int PAGE_SIZE = 12;
+     int PAGE_SIZE = 50;
      String PRICE = "price-paid";
      Boolean AFFILIATE = true ;
      String LEVEL_COURSES = "beginner";

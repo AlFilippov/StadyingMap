@@ -57,7 +57,7 @@ public class ProfessionDefinition extends Fragment {
                 "Физиотерапевт",
                 " 1 ",
                 " из ",
-                " 30 "));
+                " 31 "));
         mCountQue = binding.countQuestionTwoPart;
         Button mOnePartButton = binding.OnePartButton;
         Button mTwoPartButton = binding.TwoPartButton;
@@ -141,15 +141,15 @@ public class ProfessionDefinition extends Fragment {
         ProfessionOnePart.add(new ProfessionalDefinition(2, 19, "Art Critic"));
         ProfessionOnePart.add(new ProfessionalDefinition(4, 20, "Editor"));
         ProfessionOnePart.add(new ProfessionalDefinition(1, 21, "Interior designer"));
-        ProfessionOnePart.add(new ProfessionalDefinition(2, 23, "Software tester"));
-        ProfessionOnePart.add(new ProfessionalDefinition(4, 24, "Copywriter"));
-        ProfessionOnePart.add(new ProfessionalDefinition(2, 25, "System Administrator"));
-        ProfessionOnePart.add(new ProfessionalDefinition(1, 26, "Carpenter"));
-        ProfessionOnePart.add(new ProfessionalDefinition(4, 27, "Corrector"));
-        ProfessionOnePart.add(new ProfessionalDefinition(1, 28, "Typewriter"));
-        ProfessionOnePart.add(new ProfessionalDefinition(2, 29, "Programmer"));
-        ProfessionOnePart.add(new ProfessionalDefinition(4, 30, "Accountant"));
-        ProfessionOnePart.add(new ProfessionalDefinition(7, 30, "Бухгалтер"));
+        ProfessionOnePart.add(new ProfessionalDefinition(2, 22, "Software tester"));
+        ProfessionOnePart.add(new ProfessionalDefinition(4, 23, "Copywriter"));
+        ProfessionOnePart.add(new ProfessionalDefinition(2, 24, "System Administrator"));
+        ProfessionOnePart.add(new ProfessionalDefinition(1, 25, "Carpenter"));
+        ProfessionOnePart.add(new ProfessionalDefinition(4, 26, "Corrector"));
+        ProfessionOnePart.add(new ProfessionalDefinition(1, 27, "Typewriter"));
+        ProfessionOnePart.add(new ProfessionalDefinition(2, 28, "Programmer"));
+        ProfessionOnePart.add(new ProfessionalDefinition(4, 29, "Accountant"));
+        ProfessionOnePart.add(new ProfessionalDefinition(7, 29, "Accountant"));
 
         ProfessionTwoPart.add(new ProfessionalDefinition(3, 0, "Physiotherapist"));
         ProfessionTwoPart.add(new ProfessionalDefinition(5, 1, "Logistics specialist"));
@@ -171,17 +171,17 @@ public class ProfessionDefinition extends Fragment {
         ProfessionTwoPart.add(new ProfessionalDefinition(6, 17, "Choreographer"));
         ProfessionTwoPart.add(new ProfessionalDefinition(3, 18, "Journalist"));
         ProfessionTwoPart.add(new ProfessionalDefinition(5, 19, "Producer"));
-        ProfessionTwoPart.add(new ProfessionalDefinition(6, 21, "Musician"));
-        ProfessionTwoPart.add(new ProfessionalDefinition(3, 22, "Guide"));
-        ProfessionTwoPart.add(new ProfessionalDefinition(5, 23, "Art Director"));
-        ProfessionTwoPart.add(new ProfessionalDefinition(6, 24, "Theater and film actor"));
-        ProfessionTwoPart.add(new ProfessionalDefinition(3, 25, "Guide-translator"));
-        ProfessionTwoPart.add(new ProfessionalDefinition(5, 26, "Crisis Manager"));
-        ProfessionTwoPart.add(new ProfessionalDefinition(6, 27, "Art editor"));
-        ProfessionTwoPart.add(new ProfessionalDefinition(3, 28, "Legal Counsel"));
-        ProfessionTwoPart.add(new ProfessionalDefinition(5, 29, "Broker"));
-        ProfessionTwoPart.add(new ProfessionalDefinition(6, 30, "Literary translator"));
-        ProfessionTwoPart.add(new ProfessionalDefinition(7, 30, "Accountant"));
+        ProfessionTwoPart.add(new ProfessionalDefinition(6, 20, "Musician"));
+        ProfessionTwoPart.add(new ProfessionalDefinition(3, 21, "Guide"));
+        ProfessionTwoPart.add(new ProfessionalDefinition(5, 22, "Art Director"));
+        ProfessionTwoPart.add(new ProfessionalDefinition(6, 23, "Theater and film actor"));
+        ProfessionTwoPart.add(new ProfessionalDefinition(3, 24, "Guide-translator"));
+        ProfessionTwoPart.add(new ProfessionalDefinition(5, 25, "Crisis Manager"));
+        ProfessionTwoPart.add(new ProfessionalDefinition(6, 26, "Art editor"));
+        ProfessionTwoPart.add(new ProfessionalDefinition(3, 27, "Legal Counsel"));
+        ProfessionTwoPart.add(new ProfessionalDefinition(5, 28, "Broker"));
+        ProfessionTwoPart.add(new ProfessionalDefinition(6, 29, "Literary translator"));
+        ProfessionTwoPart.add(new ProfessionalDefinition(7, 29, "Literary translator"));
     }
 
     private String setItemListOnePart(List<ProfessionalDefinition> professionOnePart, int questionCount) {

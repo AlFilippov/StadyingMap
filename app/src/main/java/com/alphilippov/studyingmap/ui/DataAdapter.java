@@ -12,10 +12,13 @@ import android.widget.TextView;
 
 import com.alphilippov.studyingmap.R;
 import com.alphilippov.studyingmap.network.dto.UserModelDto;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
+
     private Context mContext;
     private List<UserModelDto.Result> mResultList;
 
@@ -33,10 +36,15 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull DataAdapter.ViewHolder viewHolder, int position) {
-viewHolder.mNameCourse.setText(mResultList.get(position).getTitle());
-viewHolder.mPriceCourse.setText(mResultList.get(position).getPriceDetail().getPriceString());
-viewHolder.mRatingCourse.setRating(4);
-viewHolder.mAuthorCourse.setText(mResultList.get(position).getVisibleInstructors().get(0).getTitle());
+        viewHolder.mNameCourse.setText(mResultList.get(position).getTitle());
+        viewHolder.mPriceCourse.setText(mResultList.get(position).getPriceDetail().getPriceString());
+        viewHolder.mRatingCourse.setRating(4);
+        viewHolder.mAuthorCourse.setText(mResultList.get(position).getVisibleInstructors().get(0).getTitle());
+
+        Glide.with(mContext)
+                .applyDefaultRequestOptions(new RequestOptions().fitCenter())
+                .load(mResultList.get(position).getImage480x270())
+                .into(viewHolder.mImageCourse);
     }
 
     @Override

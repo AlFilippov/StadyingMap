@@ -11,14 +11,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.Toast;
+
 import com.alphilippov.studyingmap.R;
 import com.alphilippov.studyingmap.network.NetworkService;
 import com.alphilippov.studyingmap.network.dto.UserModelDto;
+import com.alphilippov.studyingmap.network.dto.UserModelDtoRest;
 import com.alphilippov.studyingmap.ui.DataAdapter;
+import com.alphilippov.studyingmap.ui.RecyclerViewClickListener;
+import com.alphilippov.studyingmap.ui.RecyclerViewTouchListener;
 import com.alphilippov.studyingmap.utils.AppConfig;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,7 +51,9 @@ public class SearchResultOfCourses extends Fragment {
     private int page = 1;
     private int indexInterest = 0;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View qView = inflater.inflate(R.layout.search_result_of_courses, container, false);
         mRecyclerView = qView.findViewById(R.id.list);
 
@@ -58,9 +67,8 @@ public class SearchResultOfCourses extends Fragment {
         Bundle bundle = new Bundle(getArguments());
         mListHashMap = (HashMap<String, List<String>>) bundle.getSerializable(SEARCH_RESULT);
         compareGroup(mListHashMap);
-
         //TODO : Проверить соотвествие страниц и индекса интересов
-        NetworkService.getInstance().getJSONApi().getResult(page,
+        NetworkService.restUdemy().getResult(page,
                 AppConfig.PropertiesRequest.PAGE_SIZE,
                 finish.get(indexInterest),
                 AppConfig.PropertiesRequest.PRICE,
@@ -80,6 +88,19 @@ public class SearchResultOfCourses extends Fragment {
 
             }
         });
+        NetworkService.restSpring().getMessage().enqueue(new Callback<UserModelDtoRest>() {
+            @Override
+            public void onResponse(Call<UserModelDtoRest> call, Response<UserModelDtoRest> response) {
+
+            }
+
+
+            @Override
+            public void onFailure(Call<UserModelDtoRest> call, Throwable t) {
+
+            }
+        });
+
     }
 
     RecyclerView.OnScrollListener recyclerViewOnScrollListener = new RecyclerView.OnScrollListener() {
@@ -198,16 +219,30 @@ public class SearchResultOfCourses extends Fragment {
 
 
     private void generateContent(ArrayList<UserModelDto.Result> results) {
-      DataAdapter mData = new DataAdapter(getContext(),results);
+        DataAdapter mData = new DataAdapter(getContext(), results);
         mRecyclerView.setAdapter(mData);
         mData.notifyDataSetChanged();
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.addOnScrollListener(recyclerViewOnScrollListener);
+        mRecyclerView.addOnItemTouchListener(new RecyclerViewTouchListener(getContext(),
+                mRecyclerView, new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(getContext(), results.get(position).getTitle()
+                        + " is clicked", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                Toast.makeText(getContext(), "remove you finger PLEASE ", Toast.LENGTH_SHORT).show();
+
+            }
+        }));
     }
 
     private void loadMoreInformation(int page, int indexInterest) {
 
-        NetworkService.getInstance().getJSONApi().getResult(page,
+        NetworkService.restUdemy().getResult(page,
                 AppConfig.PropertiesRequest.PAGE_SIZE,
                 finish.get(indexInterest),
                 AppConfig.PropertiesRequest.PRICE,
@@ -219,7 +254,7 @@ public class SearchResultOfCourses extends Fragment {
             @Override
             public void onResponse(Call<UserModelDto> call, Response<UserModelDto> response) {
                 moreUserModel.addAll(response.body().getResults());
-               generateContent(moreUserModel);
+                generateContent(moreUserModel);
             }
 
             @Override

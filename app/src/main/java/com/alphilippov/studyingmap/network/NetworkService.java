@@ -12,13 +12,11 @@ import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
+
 public class NetworkService {
+//TODO:Переделать в несколько отдельных реализаций экземпляров Retrofit
 
-    private static NetworkService mInstance;
-    private Retrofit mRetrofit;
-
-    private NetworkService() {
-
+    public static RestService restUdemy() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {
@@ -30,11 +28,12 @@ public class NetworkService {
         }).addInterceptor(httpLoggingInterceptor).build();
 
 
-        mRetrofit = new Retrofit.Builder()
+        Retrofit mRetrofit = new Retrofit.Builder()
                 .baseUrl(AppConfig.BASE_URL)
                 .client(client)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
+        return mRetrofit.create(RestService.class);
     }
 
     private static String getBasicAuthenticator() {
@@ -43,16 +42,15 @@ public class NetworkService {
 
     }
 
-    public synchronized static NetworkService getInstance() {
-        if (mInstance == null) {
-            mInstance = new NetworkService();
-
-        }
-        return mInstance;
-    }
-
-    public RestService getJSONApi() {
+    public static RestService restSpring() {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();
+        Retrofit mRetrofit = new Retrofit.Builder()
+                .baseUrl(AppConfig.BASE_URL_TWO)
+                .client(client)
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build();
         return mRetrofit.create(RestService.class);
     }
-
 }
