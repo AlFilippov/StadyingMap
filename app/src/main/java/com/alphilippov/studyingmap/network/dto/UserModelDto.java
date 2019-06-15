@@ -17,15 +17,18 @@ public class UserModelDto {
     private String next;
     @JsonProperty("previous")
     private Object previous;
+
     public String getNext() {
         return next;
     }
 
     @JsonProperty("results")
-    private  ArrayList<Result> results=null ;
+    private ArrayList<Result> results = null;
+
     public ArrayList<Result> getResults() {
         return results;
     }
+
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -68,6 +71,7 @@ public class UserModelDto {
         }
 
     }
+
     public static class Result {
 
         @JsonProperty("_class")
@@ -171,6 +175,7 @@ public class UserModelDto {
         }
 
     }
+
     public static class VisibleInstructor {
         public String getTitle() {
             return title;

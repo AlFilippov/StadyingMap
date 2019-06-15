@@ -1,6 +1,5 @@
 package com.alphilippov.studyingmap.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,22 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alphilippov.studyingmap.R;
-import com.alphilippov.studyingmap.network.NetworkService;
-import com.alphilippov.studyingmap.network.RestService;
-import com.alphilippov.studyingmap.network.dto.UserModelDto;
-import com.alphilippov.studyingmap.network.dto.UserModelDtoRest;
-
-import org.w3c.dom.Text;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ChoiceOfProfession extends Fragment {
     private static final String HUMANITIES_AND_ART = "human_art";

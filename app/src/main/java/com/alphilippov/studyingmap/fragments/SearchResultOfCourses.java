@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.alphilippov.studyingmap.R;
 import com.alphilippov.studyingmap.network.NetworkService;
 import com.alphilippov.studyingmap.network.dto.UserModelDto;
-import com.alphilippov.studyingmap.network.dto.UserModelDtoRest;
 import com.alphilippov.studyingmap.ui.DataAdapter;
 import com.alphilippov.studyingmap.ui.RecyclerViewClickListener;
 import com.alphilippov.studyingmap.ui.RecyclerViewTouchListener;
@@ -88,18 +87,7 @@ public class SearchResultOfCourses extends Fragment {
 
             }
         });
-        NetworkService.restSpring().getMessage().enqueue(new Callback<UserModelDtoRest>() {
-            @Override
-            public void onResponse(Call<UserModelDtoRest> call, Response<UserModelDtoRest> response) {
 
-            }
-
-
-            @Override
-            public void onFailure(Call<UserModelDtoRest> call, Throwable t) {
-
-            }
-        });
 
     }
 

@@ -3,9 +3,22 @@ package com.alphilippov.studyingmap.helperclasses;
 import java.util.Objects;
 
 public class ProfessionalDefinition {
-    private final int mIdDefiniton;
-    private final int mIndexDefinition;
-    private final String mProfession;
+    private  int mIdDefiniton;
+    private  int mIndexDefinition;
+
+    public void setIdDefiniton(int idDefiniton) {
+        mIdDefiniton = idDefiniton;
+    }
+
+    public void setIndexDefinition(int indexDefinition) {
+        mIndexDefinition = indexDefinition;
+    }
+
+    public void setProfession(String profession) {
+        mProfession = profession;
+    }
+
+    private  String mProfession;
 
     public ProfessionalDefinition(int idDefiniton, int indexDefinition, String profession) {
         mIdDefiniton = idDefiniton;

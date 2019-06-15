@@ -42,15 +42,5 @@ public class NetworkService {
 
     }
 
-    public static RestService restSpring() {
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();
-        Retrofit mRetrofit = new Retrofit.Builder()
-                .baseUrl(AppConfig.BASE_URL_TWO)
-                .client(client)
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build();
-        return mRetrofit.create(RestService.class);
-    }
+
 }

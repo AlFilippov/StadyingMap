@@ -1,11 +1,11 @@
 package com.alphilippov.studyingmap.network;
 
+import com.alphilippov.studyingmap.network.dto.GetProfessionDTO;
+import com.alphilippov.studyingmap.network.dto.ProfessionDataListDTO;
 import com.alphilippov.studyingmap.network.dto.UserModelDto;
-import com.alphilippov.studyingmap.network.dto.UserModelDtoRest;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RestService {
@@ -21,6 +21,10 @@ public interface RestService {
                                  @Query("ordering") String order,
                                  @Query("ratings") int ratings);
 
-@GET("message/1")
-    Call<UserModelDtoRest> getMessage();
+    @GET("data/profession")
+    Call<ProfessionDataListDTO> getProfessionId(@Query("id") long id);
+
+
+    @GET("data/profession/info")
+    Call<GetProfessionDTO> getAllProfession(@Query("id") long id);
 }

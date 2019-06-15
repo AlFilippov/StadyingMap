@@ -3,7 +3,7 @@ package com.alphilippov.studyingmap.utils;
 public interface AppConfig {
 
     String BASE_URL = "https://www.udemy.com/api-2.0/";
-    String BASE_URL_TWO="http://10.0.2.2:8000/";
+    String BASE_URL_TWO="http://192.168.1.39:5000/";
  interface SharedPrefernce {
      String APP_PREFERENCES = "myData";
      String APP_PREFERENCES_LOGIN = " ";
