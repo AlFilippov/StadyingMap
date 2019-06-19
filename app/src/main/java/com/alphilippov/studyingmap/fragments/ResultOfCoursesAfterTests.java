@@ -1,12 +1,15 @@
 package com.alphilippov.studyingmap.fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,23 +17,30 @@ import android.widget.AbsListView;
 import android.widget.Toast;
 
 import com.alphilippov.studyingmap.R;
-import com.alphilippov.studyingmap.network.NetworkService;
+import com.alphilippov.studyingmap.helperclasses.ReplaceFragment;
+import com.alphilippov.studyingmap.network.RestService;
 import com.alphilippov.studyingmap.network.dto.UserModelDto;
 import com.alphilippov.studyingmap.ui.DataAdapter;
 import com.alphilippov.studyingmap.ui.RecyclerViewClickListener;
 import com.alphilippov.studyingmap.ui.RecyclerViewTouchListener;
 import com.alphilippov.studyingmap.utils.AppConfig;
+import com.google.common.io.BaseEncoding;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public class SearchResultOfCourses extends Fragment {
-    private ArrayList<UserModelDto.Result> moreUserModel = new ArrayList<>();
+public class ResultOfCoursesAfterTests extends Fragment implements ReplaceFragment {
+
     public List<String> intellectualList = new ArrayList<>();
     public List<String> realistList = new ArrayList<>();
     public List<String> socialList = new ArrayList<>();
@@ -38,12 +48,16 @@ public class SearchResultOfCourses extends Fragment {
     public List<String> entrepreneuriaList = new ArrayList<>();
     public List<String> artistictList = new ArrayList<>();
     public List<List<String>> intGroup = new ArrayList<>();
+    public List<String> selectionResultProfession = new ArrayList<>();
+    private ArrayList<UserModelDto.Result> moreUserModel = new ArrayList<>();
+    private ArrayList<UserModelDto.Result> userModeltoInfAboutCourse = new ArrayList<>();
+    private HashMap<String, List<UserModelDto.Result>> mUserModelResult = new HashMap<>();
     private HashMap<String, List<String>> mListHashMap;
+    private final static String TAG = ResultOfCoursesAfterTests.class.getSimpleName();
     private static final String SEARCH_RESULT = "result";
     private static final String HIGH_INT_KEY = "high";
     private static final String MIDDLE_INT_KEY = "middle";
     private static final String LOW_INT_KEY = "low";
-    public List<String> finish = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getActivity());
     private boolean isScrolling;
@@ -57,6 +71,7 @@ public class SearchResultOfCourses extends Fragment {
         mRecyclerView = qView.findViewById(R.id.list);
 
         return qView;
+
     }
 
     @Override
@@ -66,27 +81,7 @@ public class SearchResultOfCourses extends Fragment {
         Bundle bundle = new Bundle(getArguments());
         mListHashMap = (HashMap<String, List<String>>) bundle.getSerializable(SEARCH_RESULT);
         compareGroup(mListHashMap);
-        //TODO : Проверить соотвествие страниц и индекса интересов
-        NetworkService.restUdemy().getResult(page,
-                AppConfig.PropertiesRequest.PAGE_SIZE,
-                finish.get(indexInterest),
-                AppConfig.PropertiesRequest.PRICE,
-                AppConfig.PropertiesRequest.AFFILIATE,
-                "en",
-                AppConfig.PropertiesRequest.LEVEL_COURSES,
-                AppConfig.PropertiesRequest.ORDERING,
-                AppConfig.PropertiesRequest.RATINGS).enqueue(new Callback<UserModelDto>() {
-            @Override
-            public void onResponse(Call<UserModelDto> call, Response<UserModelDto> response) {
-                moreUserModel.addAll(response.body().getResults());
-                generateContent(moreUserModel);
-            }
-
-            @Override
-            public void onFailure(Call<UserModelDto> call, Throwable t) {
-
-            }
-        });
+        initRequest(page, indexInterest);
 
 
     }
@@ -118,28 +113,98 @@ public class SearchResultOfCourses extends Fragment {
                 }
             }
         }
-        //realist interior-design,home-improvement,architectural-design,yoga,massage,acupressure,aromatherapy,life-coaching,reflexology
-//intelectual     web-development , mobile-apps,programming-languages,databases,software-testing,game-development,software-engineering
-//social psychology-fundamentals , social-psychology,accounting,counseling,digital-marketing,advertising,public-relations,marketing-fundamentals,branding,social-media-marketing,
-//office accounting,digital-marketing,sales,social-media-marketing,advertising,microsoft,economics,management
-        //entreprenirual business-law,home-business,leadership,human-resources,finance,entrepreneurship,communications,management,sales,branding,industry,self-esteem,
-//articstic design-thinking,web-design,mobile-app-design,user-experience-design,photography-fundamentals,portraits,arts-and-crafts,influence,self-esteem
     };
 
+    public void initRequest(int page, int indexInterest) {
+        configurationRetrofitForUdemyApi().getResult(page,
+                AppConfig.PropertiesRequest.PAGE_SIZE,
+                selectionResultProfession.get(indexInterest),
+                AppConfig.PropertiesRequest.PRICE,
+                AppConfig.PropertiesRequest.AFFILIATE,
+                AppConfig.PropertiesRequest.LANGUAGE,
+                AppConfig.PropertiesRequest.LEVEL_COURSES,
+                AppConfig.PropertiesRequest.ORDERING,
+                AppConfig.PropertiesRequest.RATINGS).enqueue(new Callback<UserModelDto>() {
+            @Override
+            public void onResponse(Call<UserModelDto> call, Response<UserModelDto> response) {
+                moreUserModel.addAll(response.body().getResults());
+                generateContent(moreUserModel);
+            }
+
+            @Override
+            public void onFailure(Call<UserModelDto> call, Throwable t) {
+                Log.d(TAG, t.toString());
+            }
+        });
+    }
+
+    public RestService configurationRetrofitForUdemyApi() {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {
+            Request original = chain.request();
+            Request.Builder requestBuilder = original.newBuilder()
+                    .header("Authorization", "Basic " + getBasicAuthenticator());
+            Request request = requestBuilder.build();
+            return chain.proceed(request);
+        }).addInterceptor(httpLoggingInterceptor).build();
+
+
+        Retrofit mRetrofit = new Retrofit.Builder()
+                .baseUrl(AppConfig.BASE_URL_UDEMY_API)
+                .client(client)
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build();
+        return mRetrofit.create(RestService.class);
+    }
+
+    private String getBasicAuthenticator() {
+        String authStr = AppConfig.Authorization.CLIENT_ID + ":" + AppConfig.Authorization.CLIENT_SECRET;
+        return BaseEncoding.base64().encode(authStr.getBytes());
+
+    }
 
     private void compareGroup(HashMap hashMap) {
-        String[] mNameGroupInteres = {"realist", "intellectual", "social", "office", "entrepreneurial", "artistic"};
+        String[] mNameGroupInterest = {"realist", "intellectual", "social", "office", "entrepreneurial", "artistic"};
         String[] keyArray = {HIGH_INT_KEY, MIDDLE_INT_KEY, LOW_INT_KEY};
 
         for (int j = 0; j <= keyArray.length - 1; j++) {
-            for (int i = 0; i <= mNameGroupInteres.length - 1; i++) {
-                if (getListIntHshMap(hashMap, keyArray[j]).contains(mNameGroupInteres[i])
+            for (int i = 0; i <= mNameGroupInterest.length - 1; i++) {
+                if (getListIntHshMap(hashMap, keyArray[j]).contains(mNameGroupInterest[i])
                         && getListIntHshMap(hashMap, keyArray[j]).size() > 0)
                     getPositionList(i, intGroup);
 
             }
 
         }
+    }
+
+    private void generateContent(ArrayList<UserModelDto.Result> results) {
+        DataAdapter mData = new DataAdapter(getContext(), results);
+        mRecyclerView.setAdapter(mData);
+        mData.notifyDataSetChanged();
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mRecyclerView.addOnScrollListener(recyclerViewOnScrollListener);
+        mRecyclerView.addOnItemTouchListener(new RecyclerViewTouchListener(getContext(),
+                mRecyclerView, new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(getContext(), results.get(position).getTitle()
+                        + " is clicked", Toast.LENGTH_SHORT).show();
+
+                //   userModeltoInfAboutCourse.add(results.get(position));
+              //   mUserModelResult.put("info", userModeltoInfAboutCourse);
+                //   replaceFragment("info", mUserModelResult);
+             //'   getCourseView(getConcatUrl(results, position));
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                Toast.makeText(getContext(), "remove you finger PLEASE ", Toast.LENGTH_SHORT).show();
+
+            }
+        }));
     }
 
     private void initDataList() {
@@ -201,38 +266,28 @@ public class SearchResultOfCourses extends Fragment {
     }
 
     private void getPositionList(int i, List<List<String>> mList) {
-        finish.addAll(mList.get(i));
+        selectionResultProfession.addAll(mList.get(i));
 
     }
 
 
-    private void generateContent(ArrayList<UserModelDto.Result> results) {
-        DataAdapter mData = new DataAdapter(getContext(), results);
-        mRecyclerView.setAdapter(mData);
-        mData.notifyDataSetChanged();
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mRecyclerView.addOnScrollListener(recyclerViewOnScrollListener);
-        mRecyclerView.addOnItemTouchListener(new RecyclerViewTouchListener(getContext(),
-                mRecyclerView, new RecyclerViewClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Toast.makeText(getContext(), results.get(position).getTitle()
-                        + " is clicked", Toast.LENGTH_SHORT).show();
-            }
+    private String getConcatUrl(ArrayList<UserModelDto.Result> results, int position) {
+        return AppConfig.BASE_URL_UDEMY + results.get(position).getUrl();
+    }
 
-            @Override
-            public void onLongClick(View view, int position) {
-                Toast.makeText(getContext(), "remove you finger PLEASE ", Toast.LENGTH_SHORT).show();
-
-            }
-        }));
+    private void getCourseView(String url) {
+        Intent getWeb = new Intent();
+        getWeb.setPackage("com.android.chrome");
+        getWeb.setAction(Intent.ACTION_VIEW);
+        getWeb.setData(Uri.parse(url));
+        startActivity(getWeb);
     }
 
     private void loadMoreInformation(int page, int indexInterest) {
 
-        NetworkService.restUdemy().getResult(page,
+        configurationRetrofitForUdemyApi().getResult(page,
                 AppConfig.PropertiesRequest.PAGE_SIZE,
-                finish.get(indexInterest),
+                selectionResultProfession.get(indexInterest),
                 AppConfig.PropertiesRequest.PRICE,
                 AppConfig.PropertiesRequest.AFFILIATE,
                 "en",
@@ -254,7 +309,19 @@ public class SearchResultOfCourses extends Fragment {
     }
 
     @Override
+    public void replaceFragment(String key, HashMap hashMap) {
+        mSentDataInInformationAboutCourse.onSentDataInInformationAbCourse(key, hashMap);
+    }
+
+    public interface sentDataInInformationAboutCourse {
+        void onSentDataInInformationAbCourse(String key, HashMap hashmap);
+    }
+
+    sentDataInInformationAboutCourse mSentDataInInformationAboutCourse;
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        mSentDataInInformationAboutCourse = (sentDataInInformationAboutCourse) context;
     }
 }

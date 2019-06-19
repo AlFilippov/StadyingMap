@@ -2,12 +2,10 @@ package com.alphilippov.studyingmap.utils;
 
 public interface AppConfig {
 
-    String BASE_URL = "https://www.udemy.com/api-2.0/";
-    String BASE_URL_TWO="http://192.168.1.39:5000/";
+    String BASE_URL_UDEMY_API = "https://www.udemy.com/api-2.0/";
+    String BASE_URL_UDEMY="https://www.udemy.com";
+    String BASE_URL_TWO="http://192.168.1.33:5000/";
  interface SharedPrefernce {
-     String APP_PREFERENCES = "myData";
-     String APP_PREFERENCES_LOGIN = " ";
-     String APP_PREFERENCES_PASSWORD = " ";
 
  }
     interface Group {
@@ -29,6 +27,7 @@ interface PropertiesRequest{
      Boolean AFFILIATE = true ;
      String LEVEL_COURSES = "beginner";
      String ORDERING = "highest-rated";
+     String LANGUAGE ="en";
      int RATINGS =4 ;
 
 }

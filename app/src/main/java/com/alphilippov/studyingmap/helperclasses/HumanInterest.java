@@ -1,9 +1,9 @@
 package com.alphilippov.studyingmap.helperclasses;
 
 public class HumanInterest {
-    protected int mLowInterest;
-    protected int mHighInterest;
-    protected String mInteres ;
+    private int mLowInterest;
+    private int mHighInterest;
+    private String mInteres ;
 
     public HumanInterest(int lowInterest, int highInterest, String interes) {
         mLowInterest = lowInterest;

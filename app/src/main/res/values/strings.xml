@@ -1,21 +1,6 @@
 <resources>
     <string name="app_name">Stadying Map</string>
-    <string name="button">Button</string>
-    <string name="nameRegistr">Регистрация</string>
-    <string name="nameBox">Введите имя</string>
-    <string name="namePass">Введите пароль</string>
-    <string name="getReg">Зарегистрироваться</string>
-    <string name="showData">Показать данные регистрации</string>
-    <string name="ittech">Вам нравятся IT- технологии ?</string>
-    <string name="yes">Да</string>
-    <string name="No">Нет</string>
-    <string name="humanitiesandart">Гуманитарные науки и исскуство</string>
-    <string name="fragment1_interes">Что нам нравится?</string>
-    <string name="business">Бизнес</string>
-    <string name="cooking">Кулинария</string>
-    <string name="computer_science">Компьютерные науки</string>
-    <string name="data_science">Наука о данных</string>
-    <string name="fragment1_finish">Готово</string>
+    <string name="getReg">Sign Up</string>
     <string name="title_activity_navigation_drawer">Stadying Map</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -23,16 +8,16 @@
     <string name="nav_header_subtitle">Guest@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="nav_news">Новости</string>
-    <string name="nav_lessons">Обучение</string>
-    <string name="nav_tasks">Избранное</string>
-    <string name="nav_settings">Настройки</string>
+    <string name="nav_news">News</string>
+    <string name="nav_lessons">Studying</string>
+    <string name="nav_tasks">Favorites</string>
+    <string name="nav_settings">Settings</string>
     <string name="communicate">Communicate</string>
     <string name="share">Share</string>
     <string name="send">Send</string>
-    <string name="askMe">Вы знаете чему хотите обучаться ?</string>
-    <string name="wdefinition">Нет,хочу определиться</string>
-    <string name="ydecided">Знаю , хочу найти информацию</string>
+    <string name="askMe">Do you know  who you want to be ?</string>
+    <string name="wdefinition">No, I want to decide</string>
+    <string name="ydecided">I know, I want to find information</string>
     <string name="countQuestion">Вопрос</string>
     <string name="countQuestion1">из 30 </string>
     <string name="mQuantityFeedBack">70</string>
@@ -44,6 +29,14 @@
     <string name="quest_profdef_continue">  </string>
     <string name="quest_profdef_continue_two">из 30</string>
     <string name="quest_profdef_first">1</string>
-    <string name="input_button">Войти</string>
+    <string name="input_button">Log In</string>
+    <string name="mNameRatingAboutCourse">Rating</string>
+    <string name="mPriceAboutCourse">Price</string>
+    <string name="mNameAboutCourse">Text</string>
+    <string name="mAuthorAboutCourse">Author</string>
+    <string name="mBuyAboutCourse">Buy</string>
+    <string name="content_text_view_request">Search</string>
+    <string name="_text_view_request">What educational courses would you like to find?</string>
+    <string name="textview_registration">Studying Map</string>
 
 </resources>

@@ -1,27 +1,16 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/result_before_search"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/question_fragment1"
-    >
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/titleCourse"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_view_search"
+        app:layoutManager="LinearLayoutManager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="Название курса"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="235dp" />
-
-    <TextView
-        android:id="@+id/coursePrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="30$"
-        tools:layout_editor_absoluteX="184dp"
-        tools:layout_editor_absoluteY="269dp" />
-
-
+        android:layout_height="match_parent" />
 
 </android.support.constraint.ConstraintLayout>
 

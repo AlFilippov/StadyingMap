@@ -13,35 +13,30 @@ import android.widget.TextView;
 
 import com.alphilippov.studyingmap.R;
 
-public class AskMe extends Fragment implements Button.OnClickListener {
+public class VariableLearning extends Fragment implements Button.OnClickListener {
 
     private static final String YES_DECIDED = "ydecided";
     private static final String WANT_DEFENITION = "wdecided";
-    public static String mKeyTransfer = " keyTransfer";
-    private static String mTransfer;
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View askMe = inflater.inflate(R.layout.ask_me, container, false);
-        TextView mAskMainQuestion = askMe.findViewById(R.id.askMe);
         Button mYDecided = askMe.findViewById(R.id.ydecided);
-        Button mWDefenition = askMe.findViewById(R.id.wdefinition);
+        Button mWDefinition = askMe.findViewById(R.id.wdefinition);
         mYDecided.setOnClickListener(this);
-        mWDefenition.setOnClickListener(this);
+        mWDefinition.setOnClickListener(this);
         return askMe;
-
     }
 
     @Override
     public void onClick(View button) {
         switch (button.getId()) {
             case R.id.ydecided:
-mChangedFragment.ChangedFragment(YES_DECIDED);
+                mChangedFragment.ChangeFragmentAskMe(YES_DECIDED);
                 break;
             case R.id.wdefinition:
-mChangedFragment.ChangedFragment(WANT_DEFENITION);
+                mChangedFragment.ChangeFragmentAskMe(WANT_DEFENITION);
                 break;
         }
     }
@@ -50,15 +45,18 @@ mChangedFragment.ChangedFragment(WANT_DEFENITION);
     public void onResume() {
         super.onResume();
     }
-public interface OnChangedFragment{
-         void ChangedFragment(String s);
+
+    public interface OnChangedFragment {
+        void ChangeFragmentAskMe(String s);
 
     }
+
     OnChangedFragment mChangedFragment;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-mChangedFragment = (OnChangedFragment)context;
+        mChangedFragment = (OnChangedFragment) context;
 
     }
 

@@ -2,6 +2,7 @@ package com.alphilippov.studyingmap.network;
 
 import com.alphilippov.studyingmap.network.dto.GetProfessionDTO;
 import com.alphilippov.studyingmap.network.dto.ProfessionDataListDTO;
+import com.alphilippov.studyingmap.network.dto.SelectCategoriesDTO;
 import com.alphilippov.studyingmap.network.dto.UserModelDto;
 
 import retrofit2.Call;
@@ -27,4 +28,6 @@ public interface RestService {
 
     @GET("data/profession/info")
     Call<GetProfessionDTO> getAllProfession(@Query("id") long id);
+    @GET("data/category/group")
+    Call<SelectCategoriesDTO>getCategoryRequest(@Query("id")Integer id);
 }

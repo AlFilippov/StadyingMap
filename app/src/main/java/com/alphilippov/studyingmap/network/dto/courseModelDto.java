@@ -1,7 +1,4 @@
-package com.alphilippov.studyingmap.ui;
-
-import android.widget.RatingBar;
-import android.widget.TextView;
+package com.alphilippov.studyingmap.network.dto;
 
 public class courseModelDto {
    private String mNameCourse;

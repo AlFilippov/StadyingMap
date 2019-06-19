@@ -11,26 +11,26 @@
 
         <ImageView
             android:id="@+id/mImageCourse"
-            android:layout_width="70dp"
-            android:layout_height="61dp"
-            android:layout_marginLeft="3sp"
-            android:layout_marginTop="10dp"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="3dp"
+            android:layout_centerVertical="true"
             android:src="@android:drawable/dialog_frame" />
 
         <TextView
             android:id="@+id/mNameCourse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/mImageCourse"
-            android:layout_marginLeft="10sp"
+            android:layout_toEndOf="@id/mImageCourse"
+            android:layout_marginStart="20sp"
             android:text="@string/mNameCourse" />
         <TextView
             android:id="@+id/mAuthorCourse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/mNameCourse"
-            android:layout_toRightOf="@id/mImageCourse"
-            android:layout_marginLeft="10sp"
+            android:layout_toEndOf="@id/mImageCourse"
+            android:layout_marginStart="20sp"
             android:textSize="12sp"
             android:textColor="@color/colorPrimaryDark"
             android:text="@string/mAuthorCourse" />
@@ -40,32 +40,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/mAuthorCourse"
-            android:layout_toRightOf="@id/mImageCourse"
+            android:layout_toEndOf="@id/mImageCourse"
             android:layout_marginTop="3sp"
-            android:layout_marginLeft="10sp"
+            android:layout_marginStart="20sp"
             style="?android:attr/ratingBarStyleSmall"/>
 
-        <TextView
-            android:id="@+id/mAverageRating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/mAuthorCourse"
-            android:layout_marginLeft="10sp"
-            android:layout_marginTop="1sp"
-            android:layout_centerInParent="true"
-            android:layout_toRightOf="@id/mRatingCourse"
-            android:text="@string/mAverageRating" />
 
-        <TextView
-            android:id="@+id/mQuantityFeedBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/mAuthorCourse"
-            android:layout_marginLeft="5sp"
-            android:layout_marginTop="1sp"
-            android:layout_centerInParent="true"
-            android:layout_toRightOf="@id/mAverageRating"
-            android:text="@string/mQuantityFeedBack" />
+
 
         <TextView
             android:id="@+id/mPriceCourse"
@@ -73,17 +54,17 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/mRatingCourse"
             android:text="@string/mQuantityFeedBack"
-            android:layout_toRightOf="@id/mImageCourse"
-            android:layout_marginLeft="10sp"/>
+            android:layout_toEndOf="@id/mImageCourse"
+            android:layout_marginStart="20sp"/>
 
         <TextView
-            android:id="@+id/mPriceWithoutDiscount"
+            android:id="@+id/mCurrencySymbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/mPriceCourse"
+            android:layout_toEndOf="@id/mPriceCourse"
             android:text="@string/mQuantityFeedBack"
             android:layout_below="@+id/mRatingCourse"
-            android:layout_marginLeft="10sp"/>
+            android:layout_marginStart="5sp"/>
 
 
     </RelativeLayout>

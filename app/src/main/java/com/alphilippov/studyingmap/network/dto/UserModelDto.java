@@ -51,12 +51,20 @@ public class UserModelDto {
         @JsonProperty("price_string")
         private String priceString;
 
+        public String getCurrencySymbol() {
+            return currencySymbol;
+        }
+
+        public int getAmount() {
+            return amount;
+        }
+
         public String getPriceString() {
             return priceString;
         }
 
         @JsonProperty("amount")
-        private float amount;
+        private int amount;
         @JsonIgnore
         private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 

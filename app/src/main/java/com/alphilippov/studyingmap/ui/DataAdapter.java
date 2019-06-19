@@ -37,7 +37,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull DataAdapter.ViewHolder viewHolder, int position) {
         viewHolder.mNameCourse.setText(mResultList.get(position).getTitle());
-        viewHolder.mPriceCourse.setText(mResultList.get(position).getPriceDetail().getPriceString());
+       viewHolder.mPriceCourse.setText(String.valueOf(mResultList.get(position).getPriceDetail().getAmount()));
+        viewHolder.mCurrencySymbol.setText(mResultList.get(position).getPriceDetail().getCurrencySymbol());
         viewHolder.mRatingCourse.setRating(4);
         viewHolder.mAuthorCourse.setText(mResultList.get(position).getVisibleInstructors().get(0).getTitle());
 
@@ -57,10 +58,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         TextView mNameCourse;
         TextView mAuthorCourse;
         RatingBar mRatingCourse;
-        TextView mAverageRating;
-        TextView mQuantityFeedBack;
         TextView mPriceCourse;
-        TextView mPriceWithoutDiscount;
+        TextView mCurrencySymbol;
 
         ViewHolder(View view) {
             super(view);
@@ -68,10 +67,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             mNameCourse = view.findViewById(R.id.mNameCourse);
             mAuthorCourse = view.findViewById(R.id.mAuthorCourse);
             mRatingCourse = view.findViewById(R.id.mRatingCourse);
-            mAverageRating = view.findViewById(R.id.mAverageRating);
-            mQuantityFeedBack = view.findViewById(R.id.mQuantityFeedBack);
             mPriceCourse = view.findViewById(R.id.mPriceCourse);
-            mPriceWithoutDiscount = view.findViewById(R.id.mPriceWithoutDiscount);
+            mCurrencySymbol = view.findViewById(R.id.mCurrencySymbol);
         }
 
 
